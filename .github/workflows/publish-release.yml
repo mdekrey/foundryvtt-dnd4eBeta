@@ -1,0 +1,76 @@
+name: Release Zip
+
+on:
+  push:
+    tags:
+      - '4e/*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Update system.json download path
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: system.json
+          field: download
+          value: "https://github.com/mdekrey/foundryvtt-dnd4eBeta/releases/download/${{github.ref_name}}/dnd4e.zip"
+
+      - name: Update system.json url path
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: system.json
+          field: url
+          value: "https://github.com/mdekrey/foundryvtt-dnd4eBeta/tree/original/main"
+
+      - name: Update system.json manifest path
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: system.json
+          field: manifest
+          value: "https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd4e-system.json"
+
+      - id: get-version
+        run: |
+          version=$(echo ${{github.ref_name}} | sed s/4e\\/v//)
+          echo "::set-output name=version::$version"
+      - name: Update system.json version
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: system.json
+          field: version
+          value: "${{steps.get-version.outputs.version}}"
+
+      - name: 'Make Zip'
+        run: |
+          mkdir output
+          mkdir output/dnd4e
+          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd4e
+          cd output
+          zip -r ../dnd4e.zip dnd4e
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dnd4e.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Change and update'
+        run: |
+          mv system.json ../
+          git reset --hard
+          rm -rf output/
+          git checkout gh-pages
+          cp ../system.json dnd4e-system.json
+          git add dnd4e-system.json
+          git commit -m "Release ${{github.ref_name}}"
+          git push origin HEAD:gh-pages
