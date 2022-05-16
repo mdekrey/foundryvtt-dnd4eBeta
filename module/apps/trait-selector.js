@@ -10,7 +10,7 @@ export default class TraitSelector extends FormApplication {
 	    id: "trait-selector",
       classes: ["dnd4eBeta"],
       title: "Actor Trait Selection",
-      template: "systems/dnd4e/templates/apps/trait-selector.html",
+      template: "systems/dnd-mashup/templates/apps/trait-selector.html",
       width: 320,
       height: "auto",
       choices: {},

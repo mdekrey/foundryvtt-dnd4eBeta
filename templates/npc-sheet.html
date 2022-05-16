@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">				
+<form class="{{cssClass}}" autocomplete="off">
 	<section>
 		{{!-- SHeet Header --}}
 		<header class="sheet-header">
@@ -17,7 +17,7 @@
 							{{/select}}
 						</select>
 					</li>
-					
+
 					<li class="summary-role">
 						<select class="actor-role-prim" name="data.details.role.primary">
 							{{#select data.details.role.primary}}
@@ -36,7 +36,7 @@
 						<input type="text" name="data.details.level" value="{{data.details.level}}" title="{{localize 'DND4EBETA.Level'}}" data-dtype="Number" onClick="this.select();"/>
 					</li>
 				</ul>
-	
+
 				<ul class="summary">
 					<li class="summary-size">
 						<select class="actor-size" name="data.details.size">
@@ -68,7 +68,7 @@
 					<li class="summary-typeother">
 						<input name="data.details.other" type="text" value="{{data.details.other}}" title="{{localize 'DND4EBETA.Other'}} Types" placeholder="{{localize 'DND4EBETA.Other'}} Types" onClick="this.select();"/>
 					</li>
-				
+
 					<li class="summary-exp">
 						<label>{{localize 'DND4EBETA.Exp'}}</label>
 						<input type="text" name="data.details.exp" value="{{data.details.exp}}" title="{{localize 'DND4EBETA.Exp'}}" data-dtype="Number" onClick="this.select();"/>
@@ -133,7 +133,7 @@
 						{{#if data.advancedCals}}
 						<label class="attribute-name defence-bonus rollable" title="{{localize 'DND4EBETA.BonusesTo'}} {{data.defences.fort.title}}">{{data.defences.fort.value}}</label>
 						<label>Base:</label>
-						<input style="max-width: 40px;" name="data.defences.fort.base" value="{{data.defences.fort.base}}" data-dtype="Number" onfocus="this.select()">							
+						<input style="max-width: 40px;" name="data.defences.fort.base" value="{{data.defences.fort.base}}" data-dtype="Number" onfocus="this.select()">
 						{{else}}
 						<input class="attribute-name" style="max-width: 40px;" name="data.defences.fort.base" value="{{data.defences.fort.base}}" data-dtype="Number" onfocus="this.select()">
 						{{/if}}
@@ -198,7 +198,7 @@
 						{{#if data.advancedCals}}
 						<label class="attribute-name defence-bonus rollable" title="{{localize 'DND4EBETA.BonusesTo'}} {{data.defences.wil.title}}">{{data.defences.wil.value}}</label>
 						<label>Base:</label>
-						<input style="max-width: 40px;" name="data.defences.wil.base" value="{{data.defences.wil.base}}" data-dtype="Number" onfocus="this.select()">	
+						<input style="max-width: 40px;" name="data.defences.wil.base" value="{{data.defences.wil.base}}" data-dtype="Number" onfocus="this.select()">
 						{{else}}
 						<input class="attribute-name" style="max-width: 40px;" name="data.defences.wil.base" value="{{data.defences.wil.base}}" data-dtype="Number" onfocus="this.select()">
 						{{/if}}
@@ -230,7 +230,7 @@
 					</div>
 					{{/each}}
 				</div> -->
-	
+
 				<!-- <div class="flexrow" data-skill="prc">
 					<h4 class="skill-name rollable">{{data.skills.prc.label}}</h4>
 					<input type="hidden" name="data.skills.prc.value" value="{{data.skills.prc.value}}" data-dtype="Number">
@@ -239,10 +239,10 @@
 			</div>
 
 			<div style="display: flex;justify-content: space-between;">
-			
+
 			</div>
 
-			<div class="flexrow">	
+			<div class="flexrow">
 				<div title="{{moveTitle}}">
 					<strong class="movement-dialog rollable">{{localize 'DND4EBETA.Speed'}}</strong>
 					<lable class="movement-dialog rollable" style="text-transform:initial;">{{numberFormat data.movement.walk.value}} sq.</lable>
@@ -250,7 +250,7 @@
 					<li class="tag {{k}}">{{v}}</li>
 					{{/each}}
 				</div>
-	
+
 				<div>
 					<a class="trait-selector-senses" data-options="special" data-target="data.senses.special">
 						<span>{{ localize "DND4EBETA.SpecialSenses" }}:</span>
@@ -303,7 +303,7 @@
 					{{#each data.languages.spoken.selected as |v k|}}
 						<li class="tag {{k}}">{{v}}</li>
 					{{/each}}
-				</div>	
+				</div>
 
 			</div>
 
@@ -328,7 +328,7 @@
 	<section class="sheet-body section--tabs-content">
 		{{!-- Biography Tab --}}
 		<div class="tab biography" data-group="primary" data-tab="biography">
-			{{> "systems/dnd4e/templates/actors/parts/actor-biography.html" sections=biography}}
+			{{> "systems/dnd-mashup/templates/actors/parts/actor-biography.html" sections=biography}}
 		</div>
 
 		{{!-- Skills Tab --}}
@@ -344,7 +344,7 @@
 							<input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number">
 							<label class="skill-mod skill-bonus rollable">{{numberFormat skill.total decimals=0 sign=true }}</label>
 							<!-- <a class="skill-mod skill-bonus" data-target="data.details" title="Skill Bonus">{{skill.sklBonusValue}}</a> -->
-							<label style="max-width: 70px; margin-left: 10px;">Base: 
+							<label style="max-width: 70px; margin-left: 10px;">Base:
 								<input class="skill-mod" style="color: #7a7971; max-width: 30px; text-align: left;" name="data.skills.{{s}}.base" value="{{skill.base}}" data-dtype="Number">
 							</label>
 						</div>
@@ -364,22 +364,22 @@
 
 		{{!-- Owned Inventory Tab --}}
 		<div class="tab inventory npc" data-group="primary" data-tab="inventory">
-			{{> "systems/dnd4e/templates/actors/parts/actor-inventory.html" sections=inventory}}
+			{{> "systems/dnd-mashup/templates/actors/parts/actor-inventory.html" sections=inventory}}
 		</div>
 
 		{{!-- Feat Tab --}}
 		<div class="tab features npc" data-group="primary" data-tab="features">
-			{{> "systems/dnd4e/templates/actors/parts/actor-features.html" sections=features}}
+			{{> "systems/dnd-mashup/templates/actors/parts/actor-features.html" sections=features}}
 		</div>
-		
+
 		{{!-- Powers Tab --}}
 		<div class="tab powers npc" data-group="primary" data-tab="powers">
-			{{> "systems/dnd4e/templates/actors/parts/actor-powers.html" sections=powers}}
+			{{> "systems/dnd-mashup/templates/actors/parts/actor-powers.html" sections=powers}}
 		</div>
 
 		{{!-- Effects Tab --}}
 		<div class="tab effects flexcol npc" data-group="primary" data-tab="effects">
-			{{> "systems/dnd4e/templates/actors/parts/active-effects.html"}}
+			{{> "systems/dnd-mashup/templates/actors/parts/active-effects.html"}}
 		</div>
 	</section>
 

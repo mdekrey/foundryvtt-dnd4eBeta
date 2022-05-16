@@ -131,7 +131,7 @@ export class RollWithOriginalExpression extends Roll {
     /**
      * Custom chat template to handle displaying the expression attacks
      */
-    static CHAT_TEMPLATE = "systems/dnd4e/templates/chat/roll-template-single.html";
+    static CHAT_TEMPLATE = "systems/dnd-mashup/templates/chat/roll-template-single.html";
 
     async render(chatOptions={}) {
         chatOptions = foundry.utils.mergeObject({

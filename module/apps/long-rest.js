@@ -7,26 +7,26 @@ export class LongRestDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "long-rest",
 			classes: ["dnd4eBeta", "actor-rest"],
-			template: "systems/dnd4e/templates/apps/long-rest.html",
+			template: "systems/dnd-mashup/templates/apps/long-rest.html",
 			width: 500,
 			closeOnSubmit: true
 		});
 	}
-	
+
 	get title() {
 		return `${this.object.name} - Long Rest`;
 	}
 
 	/** @override */
 	getData() {
-		
+
 		return {data: this.object.data.data}
 	}
-	
+
 	async _updateObject(event, formData) {
-		
+
 		const updateData = {};
-		
+
 		if(formData.envi == "false")
 		{
 			if(this.object.data.data.details.surgeEnv.value > this.object.data.data.details.surges.max)
@@ -43,7 +43,7 @@ export class LongRestDialog extends DocumentSheet {
 		{
 			updateData[`data.details.surges.value`] = this.object.data.data.details.surges.max;
 			updateData[`data.attributes.hp.value`] = this.object.data.data.attributes.hp.max;
-			
+
 			updateData[`data.details.surgeEnv.value`] = 0;
 			updateData[`data.details.surgeEnv.bonus`] = [{}];
 		}
@@ -53,11 +53,11 @@ export class LongRestDialog extends DocumentSheet {
 		updateData[`data.actionpoints.value`] = 1;
 		updateData[`data.magicItemUse.milestone`] = 0;
 		updateData[`data.magicItemUse.dailyuse`] = this.object.data.data.magicItemUse.perDay;
-		
+
 		updateData[`data.details.secondwind`] = false;
 		updateData[`data.actionpoints.encounteruse`] = false;
 		updateData[`data.magicItemUse.encounteruse`] = false;
-		
+
 		Helper.rechargeItems(this.object, ["enc", "day", "round"]);
 		Helper.endEffects(this.document, ["endOfTargetTurn", "endOfUserTurn","startOfTargetTurn","startOfUserTurn","endOfEncounter", "endOfDay"]);
 
@@ -70,7 +70,7 @@ export class LongRestDialog extends DocumentSheet {
 				content: `${this.object.data.name} takes a long rest.`
 			});
 		}
-		
+
 		for (let r of Object.entries(this.object.data.data.resources)) {
 			if((r[1].sr || r[1].lr) && r[1].max) {
 				updateData[`data.resources.${r[0]}.value`] = r[1].max;
@@ -78,5 +78,5 @@ export class LongRestDialog extends DocumentSheet {
 		}
 
 		this.object.update(updateData);
-	}	  
+	}
 }

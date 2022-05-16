@@ -65,7 +65,7 @@ export async function d20Roll({parts=[],  partsExpressionReplacements = [], data
 		targDataArray.multiTargetCheck = true;
 	}
 	let newFlavor = "";
-	template = template || "systems/dnd4e/templates/chat/roll-dialog.html";
+	template = template || "systems/dnd-mashup/templates/chat/roll-dialog.html";
 	let dialogData = {
 		formula: parts.join(" + "),
 		data: data,
@@ -226,7 +226,7 @@ async function performD20RollAndCreateMessage(form, {parts, partsExpressionRepla
 			critStateArray.push("");
 		}
 	}
-	
+
 	// if there is only 1 roll, it's not a multi roll
 	if (!isAttackRoll || game.user.targets.size < 1) {
 		roll = roll.rollArray[0];
@@ -236,7 +236,7 @@ async function performD20RollAndCreateMessage(form, {parts, partsExpressionRepla
 		if(targetData.targetHit) Helper.applyEffectsToTokens(options.powerEffects, targetData.targetHit, "hit", options.parent);
 		if(targetData.targetMissed) Helper.applyEffectsToTokens(options.powerEffects, targetData.targetMissed, "miss", options.parent);
 	}
-	
+
 	// Convert the roll to a chat message and return the roll
 	rollMode = form ? form.rollMode.value : rollMode;
 
@@ -307,7 +307,7 @@ export async function damageRoll({parts, partsCrit, partsMiss, partsExpressionRe
 	// If they didn't want fast forward, then we need to display the rolls bonus input dialog.
 
 	// Render modal dialog
-	template = template || "systems/dnd4e/templates/chat/roll-dialog.html";
+	template = template || "systems/dnd-mashup/templates/chat/roll-dialog.html";
 	let dialogData = {
 		formula: "@damage + @bonus",
 		data: data,

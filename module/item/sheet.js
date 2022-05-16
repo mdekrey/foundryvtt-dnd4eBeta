@@ -37,7 +37,7 @@ export default class ItemSheet4e extends ItemSheet {
 
 	/** @override */
 	get template() {
-		const path = "systems/dnd4e/templates/items/";
+		const path = "systems/dnd-mashup/templates/items/";
 		return `${path}/${this.item.data.type}.html`;
 	}
 
@@ -58,7 +58,7 @@ export default class ItemSheet4e extends ItemSheet {
 
 		// Potential consumption targets
 		data.abilityConsumptionTargets = this._getItemConsumptionTargets(itemData);
-	
+
 		if(itemData.type === "power"){
 			data.powerWeaponUseTargets = this._getItemsWeaponUseTargets(itemData);
 			data.effectsPowers = this._prepareEffectPowersCategories(this.item.effects);
@@ -70,7 +70,7 @@ export default class ItemSheet4e extends ItemSheet {
 				itemData.data.isRange = true;
 			}
 
-			if(itemData.data.rangeType === "closeBurst" || itemData.data.rangeType === "closeBlast" || itemData.data.rangeType === "rangeBurst" || itemData.data.rangeType === "rangeBlast" || itemData.data.rangeType === "wall" ) { 
+			if(itemData.data.rangeType === "closeBurst" || itemData.data.rangeType === "closeBlast" || itemData.data.rangeType === "rangeBurst" || itemData.data.rangeType === "rangeBlast" || itemData.data.rangeType === "wall" ) {
 				itemData.data.isArea = true;
 			}
 			itemData.data.isRecharge = itemData.data.useType === "recharge";
@@ -82,7 +82,7 @@ export default class ItemSheet4e extends ItemSheet {
 			data.weaponMetaProperties = {};
 			for (let attrib in data.config.weaponProperties) {
 				data.weaponMetaProperties[attrib] = {
-						propName: data.config.weaponProperties[attrib], 
+						propName: data.config.weaponProperties[attrib],
 						checked: itemData.data.properties[attrib],
 						disabled: (attrib === "imp" && itemData.data.weaponType === "implement")
 				}
@@ -97,7 +97,7 @@ export default class ItemSheet4e extends ItemSheet {
 		// Vehicles
 		data.isCrewed = itemData.data.activation?.type === 'crew';
 		data.isMountable = this._isItemMountable(itemData);
-	
+
 		// Prepare Active Effects
 		data.effects = ActiveEffect4e.prepareActiveEffectCategories(this.item.effects);
 
@@ -109,7 +109,7 @@ export default class ItemSheet4e extends ItemSheet {
 
 	_getHeaderButtons(){
 		let buttons = super._getHeaderButtons();
-	
+
 		// Share Entry
 		if (game.user.isGM) {
 			buttons.unshift({
@@ -119,7 +119,7 @@ export default class ItemSheet4e extends ItemSheet {
 				onclick: () => this.shareItem()
 			});
 		}
-	
+
 		// Export JSON
 		buttons.unshift({
 			label: "Expor JSON",
@@ -240,7 +240,7 @@ export default class ItemSheet4e extends ItemSheet {
 				default: "close",
 				close: () => {}
 			  });
-			  
+
 			  d.render(true);
 		}
 	}
@@ -257,7 +257,7 @@ export default class ItemSheet4e extends ItemSheet {
 		else if (item.data.armour.type == "waist") { return config.equipmentTypesWaist; }
 		else if (item.data.armour.type == "natural") { return null; }
 		else if (item.data.armour.type == "other") { return null; }
-		
+
 		return null;
 	}
 	/* -------------------------------------------- */
@@ -273,7 +273,7 @@ export default class ItemSheet4e extends ItemSheet {
 		if ( !consume.type ) return [];
 		const actor = this.item.actor;
 		if ( !actor ) return {};
-	
+
 		// Ammunition
 		if ( consume.type === "ammo" ) {
 			return actor.itemTypes.consumable.reduce((ammo, i) =>  {
@@ -321,9 +321,9 @@ export default class ItemSheet4e extends ItemSheet {
 		}
 		else return {};
 	}
-	
+
 		/* -------------------------------------------- */
-	
+
 	/**
 	* Get the valid weapons targets which exist on the actor
 	* @param {Object} weapon         weapon data for the weapon items being displayed
@@ -331,22 +331,22 @@ export default class ItemSheet4e extends ItemSheet {
 	* @private
 	*/
 	_getItemsWeaponUseTargets(weapon) {
-		
+
 		const weaponType = weapon.data.weaponType || {};
 		if ( !weaponType ) return [];
 		const actor = this.item.actor;
 		if ( !actor ) return {};
-		
+
 		if (weaponType === "any") {
 			return actor.itemTypes.weapon.reduce((obj, i) =>  {
 				obj[i.id] = `${i.name}`;
 				return obj;
-			}, {});		
+			}, {});
 		}
 
 		let setMelee = ["melee", "simpleM", "militaryM", "superiorM", "improvM", "naturalM", "siegeM"];
 		let setRanged = ["ranged", "simpleR", "militaryR", "superiorR", "improvR", "naturalR", "siegeR"];
-		
+
 		if ( weaponType === "melee" ) {
 			return actor.itemTypes.weapon.reduce((obj, i) =>  {
 				if (setMelee.includes(i.data.data.weaponType) ) {
@@ -355,7 +355,7 @@ export default class ItemSheet4e extends ItemSheet {
 				return obj;
 			}, {});
 		}
-		
+
 		if ( weaponType === "ranged" ) {
 			return actor.itemTypes.weapon.reduce((obj, i) =>  {
 				if (setRanged.includes(i.data.data.weaponType) ) {
@@ -373,34 +373,34 @@ export default class ItemSheet4e extends ItemSheet {
 				return obj;
 			}, {});
 		}
-		
+
 		if ( weaponType === "implement" ) {
 			return actor.itemTypes.weapon.reduce((obj, i) =>  {
 				if (i.data.data.properties.imp ) {
 					obj[i.id] = `${i.name}`;
 				}
 				return obj;
-			}, {});			
+			}, {});
 		}
-				
+
 		// if ( weaponType === "implementA" ) {
 			// return actor.itemTypes.weapon.reduce((obj, i) =>  {
 				// if (i.data.data.properties.impA || i.data.data.properties.imp ) {
 					// obj[i.id] = `${i.name}`;
 				// }
 				// return obj;
-			// }, {});			
+			// }, {});
 		// }
-		
+
 		// if ( weaponType === "implementD" ) {
 			// return actor.itemTypes.weapon.reduce((obj, i) =>  {
 				// if (i.data.data.properties.impD || i.data.data.properties.imp ) {
 					// obj[i.id] = `${i.name}`;
 				// }
 				// return obj;
-			// }, {});			
+			// }, {});
 		// }
-		
+
 		return {};
 	}
 
@@ -547,10 +547,10 @@ export default class ItemSheet4e extends ItemSheet {
 		if ( damageImp ) damageImp.parts = Object.values(damageImp?.parts || {}).map(d => [d[0] || "", d[1] || ""]);
 		const damageCritImp = formData.data?.damageCritImp;
 		if ( damageCritImp ) damageCritImp.parts = Object.values(damageCritImp?.parts || {}).map(d => [d[0] || "", d[1] || ""]);
-		
+
 		const damageRes = formData.data.armour?.damageRes;
 		if ( damageRes ) damageRes.parts = Object.values(damageRes?.parts || {}).map(d => [d[0] || "", d[1] || ""]);
-	
+
 		const damageDice = formData.data?.damageDice;
 		if(damageDice) damageDice.parts = Object.values(damageDice?.parts || {}).map(d => [d[0] || "", d[1] || "", d[2] || ""]);
 
@@ -582,13 +582,13 @@ export default class ItemSheet4e extends ItemSheet {
 
 	}
 	/* -------------------------------------------- */
-	
+
 	async _onExecute(event) {
 		event.preventDefault();
 		await this._onSubmit(event, {preventClose: true});
 		return Helper.executeMacro(this.document)
 	}
-	
+
 	/* -------------------------------------------- */
 
 	/**
@@ -616,7 +616,7 @@ export default class ItemSheet4e extends ItemSheet {
 			damage.parts.splice(Number(li.dataset.damagePart), 1);
 			return this.item.update({"data.damage.parts": damage.parts});
 		}
-	
+
 		// Add new critical damage component
 		if ( a.classList.contains("add-criticalDamage") ) {
 			await this._onSubmit(event);  // Submit any unsaved changes
@@ -648,7 +648,7 @@ export default class ItemSheet4e extends ItemSheet {
 			damageImp.parts.splice(Number(li.dataset.damagePart), 1);
 			return this.item.update({"data.damageImp.parts": damageImp.parts});
 		}
-	
+
 		// Add new implement critical damage component
 		if ( a.classList.contains("add-criticalDamage-imp") ) {
 			await this._onSubmit(event);  // Submit any unsaved changes

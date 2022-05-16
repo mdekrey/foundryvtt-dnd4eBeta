@@ -47,7 +47,7 @@ export default class AbilityUseDialog extends Dialog {
     };
 
     // Render the ability usage template
-    const html = await renderTemplate("systems/dnd4e/templates/apps/ability-use.html", data);
+    const html = await renderTemplate("systems/dnd-mashup/templates/apps/ability-use.html", data);
 
     // Create the Dialog and return as a Promise
     const icon = "fa-fist-raised";

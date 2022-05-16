@@ -15,7 +15,7 @@ export class MultiAttackRoll extends Roll {
     /**
      * Custom chat template to handle multiroll attacks
      */
-    static CHAT_TEMPLATE = "systems/dnd4e/templates/chat/roll-template-multiattack.html";
+    static CHAT_TEMPLATE = "systems/dnd-mashup/templates/chat/roll-template-multiattack.html";
 
     get multirollData() {
         return this._multirollData;

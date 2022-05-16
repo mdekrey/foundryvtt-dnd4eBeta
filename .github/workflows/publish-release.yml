@@ -54,10 +54,10 @@ jobs:
       - name: 'Make Zip'
         run: |
           mkdir output
-          mkdir output/dnd-mdekrey-mashup
-          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd-mdekrey-mashup
+          mkdir output/dnd-mashup
+          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd-mashup
           cd output
-          zip -r ../dnd4e.zip dnd-mdekrey-mashup
+          zip -r ../dnd4e.zip dnd-mashup
 
       - uses: ncipollo/release-action@v1
         with:

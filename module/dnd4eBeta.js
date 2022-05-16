@@ -61,23 +61,23 @@ Hooks.once("init", async function() {
 	};
 
 	game.helper = Helper;
-	
+
 	// Define custom Entity classes
 	CONFIG.DND4EBETA = DND4EBETA;
 
 	DocumentSheetConfig.registerSheet(ActiveEffect, "dnd4eBeta", ActiveEffectConfig4e, {makeDefault :true});
 	// DocumentSheetConfig.registerSheet(Actor4e, "dnd4eBeta", ActiveEffectConfig4e, {makeDefault :true});
 	CONFIG.ActiveEffect.documentClass = ActiveEffect4e;
-	
+
 	CONFIG.Actor.documentClass = Actor4e;
 	CONFIG.Item.documentClass = Item4e;
 
 	CONFIG.statusEffects = CONFIG.DND4EBETA.statusEffect;
-	
+
 	// define custom roll extensions
 	CONFIG.Dice.rolls.push(MultiAttackRoll);
 	CONFIG.Dice.rolls.push(RollWithOriginalExpression);
-	
+
 	registerSystemSettings();
 
 	CONFIG.Combat.initiative.formula = "1d20 + @attributes.init.value";
@@ -93,9 +93,9 @@ Hooks.once("init", async function() {
 		types: ["NPC"],
 		label: "NPC Sheet",
 		makeDefault: true
-	});		
+	});
 
-	
+
 	// Setup Item Sheet
 	Items.unregisterSheet("core", ItemSheet);
 	Items.registerSheet("dnd4eBeta", ItemSheet4e, {makeDefault: true});
@@ -125,7 +125,7 @@ Hooks.once("setup", function() {
 	const noSort = [
 		"abilities", "abilityActivationTypes", "currencies", "distanceUnits", "durationType", "damageTypes", "equipmentTypesArms", "equipmentTypesFeet", "equipmentTypesHands", "equipmentTypesHead", "equipmentTypesNeck", "equipmentTypesWaist", "itemActionTypes", "limitedUsePeriods", "powerEffectTypes", "powerGroupTypes", "rangeType", "weaponType", "weaponTypes", "weaponHands"
 	];
-	
+
 	for ( let o of toLocalize ) {
 		const localized = Object.entries(CONFIG.DND4EBETA[o]).map(e => {
 			return [e[0], game.i18n.localize(e[1])];
@@ -235,16 +235,16 @@ html.find('.effect-control').last().after(message);
  * Before passing changes to the parent ActiveEffect class,
  * we want to make some modifications to make the effect
  * rolldata aware.
- * 
+ *
  * @param {*} wrapped   The next call in the libWrapper chain
  * @param {Actor} owner     The Actor that is affected by the effect
  * @param {Object} change    The changeset to be applied with the Effect
- * @returns 
+ * @returns
  */
 const apply = (wrapped, owner, change) => {
-	
+
   const stringDiceFormat = /\d+d\d+/;
-    
+
   // If the user wants to use the rolldata format
   // for grabbing data keys, why stop them?
   // This is purely syntactic sugar, and for folks
@@ -253,19 +253,19 @@ const apply = (wrapped, owner, change) => {
   if (change.key.indexOf('@') === 0)
     change.key = change.key.replace('@', '');
 
-  // If the user entered a dice formula, I really doubt they're 
+  // If the user entered a dice formula, I really doubt they're
   // looking to add a random number between X and Y every time
   // the Effect is applied, so we treat dice formulas as normal
   // strings.
   // For anything else, we use Roll.replaceFormulaData to handle
   // fetching of data fields from the actor, as well as math
-  // operations.  
+  // operations.
   if (!change.value.match(stringDiceFormat))
     change.value = Roll.replaceFormulaData(change.value, owner.getRollData());
 
-  // If it'll evaluate, we'll send the evaluated result along 
+  // If it'll evaluate, we'll send the evaluated result along
   // for the change.
-  // Otherwise we just send along the exact string we were given. 
+  // Otherwise we just send along the exact string we were given.
   try {
     change.value = Roll.safeEval(change.value).toString();
   } catch (e) { /* noop */ }
@@ -276,25 +276,25 @@ const apply = (wrapped, owner, change) => {
 Hooks.once('init', async function() {
 
 	libWrapper.register(
-		'dnd4e',
+		'dnd-mashup',
 		'ActiveEffect.prototype.apply',
 		apply
 	);
 
 	libWrapper.register(
-		'dnd4e',
+		'dnd-mashup',
 		'MeasuredTemplate.prototype._getCircleShape',
 		AbilityTemplate._getCircleSquareShape
 	);
 
 	libWrapper.register(
-		'dnd4e',
+		'dnd-mashup',
 		'MeasuredTemplate.prototype._refreshRulerText',
 		AbilityTemplate._refreshRulerBurst
 	);
 
 	libWrapper.register(
-		'dnd4e',
+		'dnd-mashup',
 		'Combat.prototype.nextTurn',
 		Turns._onNextTurn
 	)

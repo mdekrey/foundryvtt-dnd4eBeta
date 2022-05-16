@@ -10,7 +10,7 @@ export default class TraitSelector extends FormApplication {
 	    id: "trait-selector",
       classes: ["dnd4eBeta"],
       title: "Actor Trait Selection",
-      template: "systems/dnd4e/templates/apps/trait-selector-sense.html",
+      template: "systems/dnd-mashup/templates/apps/trait-selector-sense.html",
       width: 320,
       height: "auto",
       choices: {},
@@ -39,30 +39,30 @@ export default class TraitSelector extends FormApplication {
 
   /** @override */
   getData() {
-	
+
     // Get current values
     let attr = getProperty(this.object.data, this.attribute) || {};
     attr.value = attr.value || [];
-	
+
 	// Populate choices
     let choices = duplicate(this.options.choices);
-		
+
     for ( let [k, v] of Object.entries(choices) ) {
 		let i = -1;
-		
+
 		for(let index = 0; index < attr.value.length; index++)
 		{
 			if(attr.value[index][0].includes(k))
 				i = index;
 		}
-		
+
       choices[k] = {
         label: v,
 		chosen: attr && i != -1 ? true : false,
-		value: attr && i != -1 ? attr.value[i][1] : null 
+		value: attr && i != -1 ? attr.value[i][1] : null
       }
     }
-	
+
     // Return data
 	  return {
       allowCustom: this.options.allowCustom,
@@ -74,7 +74,7 @@ export default class TraitSelector extends FormApplication {
   /* -------------------------------------------- */
 
   /** @override */
-  _updateObject(event, formData) {	  
+  _updateObject(event, formData) {
     const updateData = {};
 
     // Obtain choices

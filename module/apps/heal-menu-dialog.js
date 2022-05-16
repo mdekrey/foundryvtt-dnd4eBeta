@@ -8,7 +8,7 @@ export class HealMenuDialog extends FormApplication {
 			id: "heal-menu-dialog",
 			classes: ["dnd4eBeta"],
 			title: "Healing Menu",
-			template: "systems/dnd4e/templates/apps/heal-menu-dialog.html",
+			template: "systems/dnd-mashup/templates/apps/heal-menu-dialog.html",
 			width: 500,
 			height: "auto",
 			closeOnSubmit: true,

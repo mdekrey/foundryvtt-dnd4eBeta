@@ -39,7 +39,7 @@ export default class ActorSheet4e extends ActorSheet {
 			features: new Set()
 		};
 	}
-  
+
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
@@ -75,7 +75,7 @@ export default class ActorSheet4e extends ActorSheet {
   /** @override */
   get template() {
     // if ( !game.user.isGM && this.actor.limited ) return "systems/dnd5e/templates/actors/limited-sheet.html";
-    return `systems/dnd4e/templates/actor-sheet.html`;
+    return `systems/dnd-mashup/templates/actor-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -109,32 +109,32 @@ export default class ActorSheet4e extends ActorSheet {
 			const item = this.actor.items.get(i._id);
 			i.labels = item.labels;
 		}
-		
+
 		// sheetData.config = CONFIG.DND4EBETA;
 		actorData.data.size = DND4EBETA.actorSizes;
-		
+
 		for ( let [s, skl] of Object.entries(actorData.data.skills)) {
 			skl.ability = actorData.data.abilities[skl.ability].label.substring(0, 3);
 			skl.icon = this._getTrainingIcon(skl.value);
 			skl.hover = game.i18n.localize(DND4EBETA.trainingLevels[skl.value]);
 			skl.label = game.i18n.localize(DND4EBETA.skills[s]);
 		}
-		
-		this._prepareData(actorData.data.languages, 
+
+		this._prepareData(actorData.data.languages,
 			{"spoken": CONFIG.DND4EBETA.spoken, "script": CONFIG.DND4EBETA.script}
 		);
-		
+
 		this._prepareDataSense(actorData.data.senses,
 			{"vision": CONFIG.DND4EBETA.vision, "special": CONFIG.DND4EBETA.special}
 		);
-		
+
 		this._prepareDataSave(actorData.data.details,
 			{"saves": CONFIG.DND4EBETA.saves}
 		);
 
 		// Prepare owned items
 		this._prepareItems(data);
-		
+
 		// Prepare active effects
 		// data.effects = prepareActiveEffectCategories(this.actor.effects);
 		data.effects = ActiveEffect4e.prepareActiveEffectCategories(this.actor.effects);
@@ -151,7 +151,7 @@ export default class ActorSheet4e extends ActorSheet {
 
 		return data;
 	}
-	
+
 	_prepareData(data, map) {
 		// const map = {
 			// "spoken": CONFIG.DND4EBETA.spoken,
@@ -199,7 +199,7 @@ export default class ActorSheet4e extends ActorSheet {
 			feat: { label: "DND4EBETA.FeatLevel", items: [], dataset: {type: "feat"} },
 			ritual: { label: "DND4EBETA.FeatRitual", items: [], dataset: {type: "ritual"} }
 		};
-		
+
 		// Partition items by category
 		let [items, pow, feats] = data.items.reduce((arr, item) => {
 			// Item details
@@ -241,7 +241,7 @@ export default class ActorSheet4e extends ActorSheet {
 		// const nPrepared = spells.filter(s => {
 		  // return (s.data.level > 0) && (s.data.preparation.mode === "prepared") && s.data.preparation.prepared;
 		// }).length;
-		
+
 		// Organize Features
 		// const features = {
 		  // classes: { label: "DND4EBETA.ItemTypeClassPl", items: [], hasActions: false, dataset: {type: "class"}, isClass: true },
@@ -301,10 +301,10 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 
 	_compareValues(key, order = 'asc') {
 		return function innerSort(a, b) {
-			if (a.hasOwnProperty(key) && b.hasOwnProperty(key)) {	
+			if (a.hasOwnProperty(key) && b.hasOwnProperty(key)) {
 				const varA = (typeof a[key] === 'string') ? a[key].toUpperCase() : a[key];
 				const varB = (typeof b[key] === 'string') ? b[key].toUpperCase() : b[key];
-	
+
 				let comparison = 0;
 				if (varA > varB) {
 					comparison = 1;
@@ -320,7 +320,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 
 				const varA = (typeof a.data[key] === 'string') ? a.data[key].toUpperCase() : a.data[key];
 				const varB = (typeof b.data[key] === 'string') ? b.data[key].toUpperCase() : b.data[key];
-	
+
 				let comparison = 0;
 				if (varA > varB) {
 					comparison = 1;
@@ -510,7 +510,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 				} else {
 					itemData.data.rangeText = `Melee Weapon - ${weaponUse.data.name}`;
 					itemData.data.rangeTextShort = "W-M";
-					
+
 					if(itemData.data.rangePower == null){
 						itemData.data.rangeTextBlock = '';
 					} else {
@@ -561,7 +561,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	}
   }
 	_prepareDataSense(data, map) {
-		
+
 		for ( let [l, choices] of Object.entries(map) ) {
 			const trait = data[l];
 			if ( !trait ) continue;
@@ -578,11 +578,11 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 				trait.custom.split(";").forEach((c, i) => trait.selected[`custom${i+1}`] = c.trim());
 			}
 			trait.cssClass = !isObjectEmpty(trait.selected) ? "" : "inactive";
-			
+
 		}
 	}
 	_prepareDataSave(data, map) {
-		
+
 		for ( let [l, choices] of Object.entries(map) ) {
 			const trait = data[l];
 			if ( !trait ) continue;
@@ -600,7 +600,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 				trait.custom.split(";").forEach((c, i) => trait.selected[`custom${i+1}`] = c.trim());
 			}
 			trait.cssClass = !isObjectEmpty(trait.selected) ? "" : "inactive";
-			
+
 		}
 	}
 
@@ -641,7 +641,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	  }
 	  return true;
 	});
-  }	
+  }
 
 	_getTrainingIcon(level) {
 		const icons = {
@@ -675,28 +675,28 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		});
 
 		// Delete Inventory Item
-		
+
 		// html.find('.item-delete').click(ev => {
 		// const li = $(ev.currentTarget).parents(".item");
 		// this.actor.deleteOwnedItem(li.data("itemId"));
 		// li.slideUp(200, () => this.render(false));
 		// });
 
-		if ( this.actor.isOwner ) {	
+		if ( this.actor.isOwner ) {
 			// Roll Skill Checks
 			html.find('.skill-name').click(this._onRollSkillCheck.bind(this));
 
 			html.find('.passive-message').click(this._onRollPassiveCheck.bind(this));
-			
+
 			//Roll Abillity Checks
 			html.find('.ability-name').click(this._onRollAbilityCheck.bind(this));
-			
+
 			//Roll Defence Checks
 			html.find('.def-name').click(this._onRollDefenceCheck.bind(this));
-			
+
 			//Open HP-Options
 			html.find('.health-option').click(this._onHPOptions.bind(this));
-			
+
 			//Open Skill-Bonus
 			html.find('.skill-bonus').click(this._onSkillBonus.bind(this));
 			html.find('.death-save-bonus').click(this._onDeathSaveBonus.bind(this));
@@ -710,11 +710,11 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			html.find('.passive-bonus').click(this._onPassiveBonus.bind(this));
 			html.find('.modifiers-bonus').click(this._onModifiersBonus.bind(this));
 			html.find('.resistances-bonus').click(this._onResistancesBonus.bind(this));
-			
-			html.find('.movement-dialog').click(this._onMovementDialog.bind(this));		
-			
+
+			html.find('.movement-dialog').click(this._onMovementDialog.bind(this));
+
 			html.find('.custom-roll-descriptions').click(this._onCustomRolldDescriptions.bind(this));
-			
+
 			//second wind
 			html.find('.second-wind').click(this._onSecondWind.bind(this));
 
@@ -726,27 +726,27 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			html.find('.action-point-extra').click(this._onActionPointExtraDialog.bind(this));
 
 
-			
+
 			//short rest
 			html.find('.short-rest').click(this._onShortRest.bind(this));
-			
+
 			//long rest
-			html.find('.long-rest').click(this._onLongRest.bind(this));		
-			
+			html.find('.long-rest').click(this._onLongRest.bind(this));
+
 			//death save
 			html.find('.death-save').click(this._onDeathSave.bind(this));
 			html.find('.roll-save').click(this._onSavingThrow.bind(this));
 
 			//roll init
 			html.find('.rollInitiative').click(this._onrollInitiative.bind(this));
-			
+
 			// Trait Selector
 			html.find('.trait-selector').click(this._onTraitSelectorLang.bind(this));
 			html.find('.trait-selector-senses').click(this._onTraitSelectorSense.bind(this));
-			
+
 			//save throw bonus
 			html.find(`.trait-selector-save`).click(this._onTraitSelectorSaveThrow.bind(this));
-			
+
 			//Inventory & Item management
 			html.find('.item-create').click(this._onItemCreate.bind(this));
 			html.find('.item-edit').click(this._onItemEdit.bind(this));
@@ -760,16 +760,16 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			// Active Effect management
 			// html.find(".effect-control").click(event => onManageActiveEffect(event, this.actor));
 			html.find(".effect-control").click(event => ActiveEffect4e.onManageActiveEffect(event, this.actor));
-		
+
 			// Item summaries
-			html.find('.item .item-name h4').click(event => this._onItemSummary(event));		
-			
+			html.find('.item .item-name h4').click(event => this._onItemSummary(event));
+
 			// Item State Toggling
 			html.find('.item-toggle').click(this._onToggleItem.bind(this));
-		
+
 			//convert currency to it's largest form to save weight.
 			html.find(".currency-convert").click(this._onConvertCurrency.bind(this));
-			
+
 			// Item Rolling
 			html.find('.item .item-image').click(event => this._onItemRoll(event));
 			html.find('.item .item-recharge').click(event => this._onItemRecharge(event));
@@ -777,7 +777,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			html.find('.effect-save').click(event => this._onRollEffectSave(event));
 
 			html.find('.encumbrance-options').click(this._onEncumbranceDialog.bind(this))
-			
+
 		}
 	}
 
@@ -795,7 +795,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		if(/^[0-9]+$/.test(value)) {
 			return;
 		}
-		
+
 		if(!/^[\-=+ 0-9]+$/.test(value)) {
 			input.value = getProperty(this.actor.data, input.name)
 			return;}
@@ -864,7 +864,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		}
 		li.toggleClass("expanded");
 	}
-  
+
   /* -------------------------------------------- */
 
   /**
@@ -934,9 +934,9 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		}
 
 		itemData.data.autoGenChatPowerCard = game.settings.get("dnd4e", "powerAutoGenerateLableOption");
-		
+
 		if(this.actor.type === "NPC"){
-			
+
 			itemData.data.weaponType = "none";
 			itemData.data.weaponUse = "none";
 
@@ -954,14 +954,14 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 
 		if(game.settings.get("dnd4e", "halfLevelOptions")){
 			if(this.actor.type === "NPC"){
-				itemData.data.attack.formula = ""; 
+				itemData.data.attack.formula = "";
 			} else {
 				itemData.data.attack = {
 					formula:"@wepAttack + @powerMod + @atkMod"
 				}
 			}
 		}
-		
+
 		return this.actor.createEmbeddedDocuments("Item", [itemData]);
 	}
 
@@ -1005,7 +1005,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		}
 	}
   }
-  
+
   /* -------------------------------------------- */
 
   /**
@@ -1021,11 +1021,11 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		event.target.value = uses;
 		return item.update({ 'data.uses.value': uses });
 	}
-  
+
 	/* -------------------------------------------- */
-  
+
 	/**
-	*Opens dialog config window for HP options 
+	*Opens dialog config window for HP options
 	*turns on/off auto calculation of HP based on class stats
 	*keep or reset tempHP on short rest.
 	*/
@@ -1034,12 +1034,12 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 
 		new HPOptions(this.actor).render(true)
 	}
-	
+
 	/* -------------------------------------------- */
 	/**
 	* Opens bonuses dialog config window for selected Skills
 	*/
-	
+
 	_onSkillBonus(event) {
 		event.preventDefault();
 		const skillName = event.currentTarget.parentElement.dataset.skill;
@@ -1052,50 +1052,50 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	_onDeathSaveBonus(event) {
 		event.preventDefault();
 		const options = {target: `data.details.deathsavebon`, label: "Death Savingthrow Bonus" };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
-	
+
+
 	_onSurgeBonus(event) {
 		event.preventDefault();
 		const options = {target: `data.details.surgeBon`, label: "Healing Surge Bonus" };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
+
 	_onSurgeEnv(event) {
 		event.preventDefault();
 		const options = {target: `data.details.surgeEnv`, label: "Healing Surges Environmental Losses" };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
 
 	_onSecondWindBonus(event) {
 		event.preventDefault();
 		const options = {target: `data.details.secondwindbon`, label: "Second Wind Bonus", secondWind: true };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
+
 	_onDefencesBonus(event) {
 		event.preventDefault();
 		const defName = event.currentTarget.parentElement.dataset.defence;
 		const target = `data.defences.${defName}`;
 		const options = {target: target, label: `${this.actor.data.data.defences[defName].label} Defence Bonus`, ac: (defName ==="ac")  };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
+
 	_onInitiativeBonus(event) {
 		event.preventDefault();
 		const options = {target: `data.attributes.init`, label: "Initiative Bonus", init: true };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
+
 	_onMovementBonus(event) {
 		event.preventDefault();
 		const moveName = event.currentTarget.parentElement.dataset.movement;
 		const target = `data.movement.${moveName}`;
 		const options = {target: target, label: `${this.actor.data.data.movement[moveName].label} Movement Bonus` };
-		new AttributeBonusDialog(this.actor, options).render(true);		
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
+
 	_onMovementDialog(event) {
 		event.preventDefault();
 		new MovementDialog(this.actor).render(true)
@@ -1117,8 +1117,8 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		const skillName = this.actor.data.data.passive[passName].skill;
 		const target = `data.passive.${passName}`;
 		const options = {target: target, label: `Passive ${this.actor.data.data.skills[skillName].label} Bonus` };
-		new AttributeBonusDialog(this.actor, options).render(true);		
-	}	
+		new AttributeBonusDialog(this.actor, options).render(true);
+	}
 
 	_onModifiersBonus(event) {
 		event.preventDefault();
@@ -1126,7 +1126,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		const target = `data.modifiers.${modifierName}`;
 		const options = {target: target, label: `${this.actor.data.data.modifiers[modifierName].label} Bonus` };
 		new AttributeBonusDialog(this.actor, options).render(true);
-	}	
+	}
 
 	_onResistancesBonus(event) {
 		event.preventDefault();
@@ -1135,7 +1135,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		const options = {target: target, label: `${this.actor.data.data.resistances[resName].label} Damage Resistances Bonus` };
 		new AttributeBonusDialog(this.actor, options).render(true);
 	}
-	
+
 	_onCustomRolldDescriptions(event) {
 		event.preventDefault();
 		const options = {data: this.actor.data};
@@ -1146,9 +1146,9 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	*/
 	_onSecondWind(event) {
 		event.preventDefault();
-		new SecondWindDialog(this.actor).render(true);		
+		new SecondWindDialog(this.actor).render(true);
 	}
-	
+
 	/* -------------------------------------------- */
 
 	_onActionPointDialog(event) {
@@ -1170,9 +1170,9 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		event.preventDefault();
 		new ShortRestDialog(this.actor).render(true);
 	}
-	
+
 	/* -------------------------------------------- */
-  
+
 	/**
 	*Opens dialog window to long rest.
 	*reset HP, surges, encounter powers, daily powers, magic item use, actions points set to default.
@@ -1200,7 +1200,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	_onSavingThrowBonus(event) {
 		event.preventDefault();
 		const options = {target: `data.details.saves`, label: "Savingthrow Bonus" };
-		new AttributeBonusDialog(this.actor, options).render(true);	
+		new AttributeBonusDialog(this.actor, options).render(true);
 	}
 
 	_onCycleSkillProficiency(event) {
@@ -1233,7 +1233,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		event.preventDefault();
 		const itemId = event.currentTarget.closest(".item").dataset.itemId;
 		const item = this.actor.items.get(itemId);
-		
+
 		if ( item.data.type === "power") {
 			return this.actor.usePower(item, {configureDialog: !event.shiftKey});
 		}
@@ -1273,7 +1273,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 				r.dice[0].options.critical = item.data.data.rechargeRoll;
 				r.dice[0].options.fumble = item.data.data.rechargeRoll -1;
 				r.evaluate({async: false});
-	
+
 				let flav = `${item.data.name} did not recharge.`;
 				if(r.total >= item.data.data.rechargeRoll){
 					this.object.updateEmbeddedDocuments("Item", [{_id:itemId, "data.uses.value": item.data.data.preparedMaxUses}]);
@@ -1336,7 +1336,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	}
 	return this.object.update({"data.currency": curr});
   }
-  
+
   /* -------------------------------------------- */
 
   /**
@@ -1362,7 +1362,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		const options = { name: a.dataset.target, title: label.innerText, choices };
 		new TraitSelectorSense(this.actor, options).render(true);
 	}
-	
+
 	_onTraitSelectorSaveThrow(event) {
 		event.preventDefault();
 		const a = event.currentTarget;
@@ -1395,7 +1395,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		this.actor.rollSkill(skill, {event: event});
 	}
   /* -------------------------------------------- */
-  
+
   /**
    * Handle posting a chat message for displaying passive skills.
    * @param {Event} event   The originating click event
@@ -1410,11 +1410,11 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			user: game.user.id,
 			speaker: {actor: this.object, alias: this.object.data.name},
 			content: `Passive ${this.actor.data.data.skills[skillName].label} Skill Check: <SPAN STYLE="font-weight:bold">${this.object.data.data.passive[passName].value}`
-		});	
+		});
 	}
 
   /* -------------------------------------------- */
-  
+
   /**
    * Handle rolling a ability check
    * @param {Event} event   The originating click event
@@ -1425,7 +1425,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 	let ability = event.currentTarget.parentElement.dataset.ability;
 	this.actor.rollAbility(ability, {event: event});
   }
-  
+
   /* -------------------------------------------- */
 
   /**
