@@ -843,12 +843,16 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 		//	let props = $(`<div class="item-properties"></div>`);
 			if (item.type === "power") {
 				let div = $(`<div class="item-summary"></div>`);
-				let descrip = $(`<div class="item-description">${chatData.description.value}</div>`);
-				div.append(descrip);
+				if (chatData.description.override) {
+					div.append($(chatData.description.override));
+				} else {
+					let descrip = $(`<div class="item-description">${chatData.description.value}</div>`);
+					div.append(descrip);
 
-				if(item.data.data.autoGenChatPowerCard){
-					let details = $(`<div class="item-details">${Helper._preparePowerCardData(chatData, CONFIG, this.actor.data.toObject(false))}</div>`);
-					div.append(details);
+					if(item.data.data.autoGenChatPowerCard){
+						let details = $(`<div class="item-details">${Helper._preparePowerCardData(chatData, CONFIG, this.actor.data.toObject(false))}</div>`);
+						div.append(details);
+					}
 				}
 
 				li.append(div.hide());
