@@ -6,7 +6,7 @@ export default class ActiveEffectConfig4e extends ActiveEffectConfig {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["sheet", "active-effect-sheet"],
-			template: "systems/dnd4e/templates/sheets/active-effect-config.html",
+			template: "systems/dnd4e-mdekrey/templates/sheets/active-effect-config.html",
 			width: 560,
 			height: "auto",
 			tabs: [{navSelector: ".tabs", contentSelector: "form", initial: "details"}]
@@ -16,7 +16,7 @@ export default class ActiveEffectConfig4e extends ActiveEffectConfig {
 	/** @override */
 	getData(options) {
 		let data = super.getData(options);
-		
+
 		data.config = CONFIG.DND4EBETA;
 		data.powerParent = (this.object.parent.type === "power");
 

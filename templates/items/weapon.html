@@ -43,7 +43,7 @@
 	<section class="sheet-body">
 
 		{{!-- Description Tab --}}
-		{{> "systems/dnd4e/templates/items/parts/item-description.html"}}
+		{{> "systems/dnd4e-mdekrey/templates/items/parts/item-description.html"}}
 
 		{{!-- Details Tab --}}
 		<div class="tab details" data-group="primary" data-tab="details">
@@ -114,7 +114,7 @@
 						<input type="text" name="data.profImpBonus" value="{{data.profImpBonus}}" title="Implement Proficiency Bonus" placeholder="0" data-dtype="Number" onClick="this.select();"/>
 					</div>
 				</div>
-				<div class="form-group">    
+				<div class="form-group">
 					<label title="Enhancement Bonus">Enhancement Bonus:</label>
 					<div class="form-fields">
 						<input type="text" name="data.enhance" value="{{data.enhance}}" title="Enhancement Bonus" placeholder="0" data-dtype="Number" onClick="this.select();"/>
@@ -173,9 +173,9 @@
 						<input type="text" name="data.consume.amount" value="{{data.consume.amount}}" data-dtype="Number"/>
 					</div>
 				</div>
-				
+
 				<h4 class="damage-header"title="Base number of dice rolled for weapon attacks." for="damageDice">{{ localize "DND4EBETA.DiceWeapon"}}<a class="damage-control add-dice"><i class="fas fa-plus"></i></a></h4>
-				
+
 				<ol class="damage-parts form-group">
 					{{#each data.damageDice.parts as |part i| }}
 					<li class="damage-part" data-damage-part="{{i}}">
@@ -223,12 +223,12 @@
 					<h4 class="damage-header" title="Formula used for Attack Rolls.">Bonus to Attack {{ localize "DND4EBETA.Formula" }}:</h4>
 					<input type="text" name="data.attackForm" value="{{data.attackForm}}" title="Formula used for Attack Rolls." data-dtype="String"/>
 				</div>
-				
+
 				{{!-- Damage Formula --}}
 				<div class="form-group stacked">
 					<h4 class="damage-header" title="Formula used for Damage Rolls.">Bonus to Primary Damage {{ localize "DND4EBETA.Formula" }}:</h4>
 					<input type="text" name="data.damageForm" value="{{data.damageForm}}" title="Formula used for Damage Rolls." data-dtype="String"/>
-				</div>				
+				</div>
 				<h4 class="damage-header">
 					{{#unless isHealing }}Secondary {{ localize "DND4EBETA.Damage" }}{{ else }}{{ localize "DND4EBETA.Healing" }}{{/unless}} {{ localize "DND4EBETA.Formula" }}:
 					<a class="damage-control add-damage"><i class="fas fa-plus"></i></a>
@@ -257,7 +257,7 @@
 				<div class="form-group stacked">
 					<h4 class="damage-header" title="Formula used for Critical Damage Rolls.">Bonus to Critical Damage {{ localize "DND4EBETA.Formula" }}:</h4>
 					<input type="text" name="data.critDamageForm" value="{{data.critDamageForm}}" title="Formula used for Critical Damage Rolls." data-dtype="String"/>
-				</div>				
+				</div>
 				<h4 class="damage-header">
 					Secondary Critical Damage {{ localize "DND4EBETA.Formula" }}:
 					<a class="damage-control add-criticalDamage"><i class="fas fa-plus"></i></a>
@@ -282,20 +282,20 @@
 					{{/each}}
 				</ol>
 				{{/unless}}
-				
+
 				{{!-- Attack Formula for Implement--}}
 				{{#if data.properties.imp}}
 				<div class="form-group stacked">
 					<h4 class="damage-header" title="Formula used for Attack Rolls.">Implement Attack {{ localize "DND4EBETA.Formula" }}:</h4>
 					<input type="text" name="data.attackFormImp" value="{{data.attackFormImp}}" title="Formula used for Attack Rolls." data-dtype="String"/>
 				</div>
-				
+
 				{{!-- Damage Formula for Implement--}}
 				<div class="form-group stacked">
 					<h4 class="damage-header" title="Formula used for Damage Rolls.">Bonus to Implement Damage {{ localize "DND4EBETA.Formula" }}:</h4>
 					<input type="text" name="data.damageFormImp" value="{{data.damageFormImp}}" title="Formula used for Damage Rolls." data-dtype="String"/>
-				</div>	
-				
+				</div>
+
 				<h4 class="damage-header">
 					{{#unless isHealing }}Secondary Implement {{ localize "DND4EBETA.Damage" }}{{ else }}{{ localize "DND4EBETA.Healing" }}{{/unless}} {{ localize "DND4EBETA.Formula" }}:
 					<a class="damage-control add-damage-imp"><i class="fas fa-plus"></i></a>
@@ -324,7 +324,7 @@
 				<div class="form-group stacked">
 					<h4 class="damage-header" title="Formula used for Critical Damage Rolls.">Bonus to Implement Critical Damage {{ localize "DND4EBETA.Formula" }}:</h4>
 					<input type="text" name="data.critDamageFormImp" value="{{data.critDamageFormImp}}" title="Formula used for Critical Damage Rolls." data-dtype="String"/>
-				</div>	
+				</div>
 				<h4 class="damage-header">
 					Secondary Implement Critical Damage {{ localize "DND4EBETA.Formula" }}:
 					<a class="damage-control add-criticalDamage-imp"><i class="fas fa-plus"></i></a>
@@ -401,11 +401,11 @@
 
 		{{!-- Effects Tab --}}
 		<div class="tab effects flexcol" data-group="primary" data-tab="effects">
-			{{> "systems/dnd4e/templates/actors/parts/active-effects.html"}}
+			{{> "systems/dnd4e-mdekrey/templates/actors/parts/active-effects.html"}}
 		</div>
 
 		{{!-- Macros Tab --}}
 <!-- DO NOT INDENT ME:  All of my indentation will be transferred to the macro text every time it is opened, causing each line of the macro to get steadily more tabs in front of it and march across the screen -->
-{{> "systems/dnd4e/templates/items/parts/item-macro.html"}}
+{{> "systems/dnd4e-mdekrey/templates/items/parts/item-macro.html"}}
 	</section>
 </form>

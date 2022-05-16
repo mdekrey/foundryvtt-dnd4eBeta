@@ -5,12 +5,12 @@ export class ActionPointDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "action-point",
 			classes: ["action-point"],
-			template: "systems/dnd4e/templates/apps/action-point.html",
+			template: "systems/dnd4e-mdekrey/templates/apps/action-point.html",
 			width: 500,
 			closeOnSubmit: true
 		});
 	}
-	
+
 	get title() {
 		return `${this.object.name} - Action Point`;
 	}
@@ -21,7 +21,7 @@ export class ActionPointDialog extends DocumentSheet {
 		return { data: this.object.data.data, extra: extra };
 	}
 	async _updateObject(event, formData) {
-		
+
 		let extra = "";
 		if (this.object.data.data.actionpoints.custom !== "") {
 			extra = this.object.data.data.actionpoints.custom;
@@ -48,5 +48,5 @@ export class ActionPointDialog extends DocumentSheet {
 
 			this.object.update(updateData);
 		}
-	}	  
+	}
 }

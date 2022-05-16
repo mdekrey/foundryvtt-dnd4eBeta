@@ -7,12 +7,12 @@ export class SecondWindDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "second-wind",
 			classes: ["dnd4eBeta", "second-wind"],
-			template: "systems/dnd4e/templates/apps/second-wind.html",
+			template: "systems/dnd4e-mdekrey/templates/apps/second-wind.html",
 			width: 500,
 			closeOnSubmit: true
 		});
 	}
-	
+
 	get title() {
 		return `${this.object.name} - Second Wind`;
 	}
@@ -23,7 +23,7 @@ export class SecondWindDialog extends DocumentSheet {
 		return { data: this.object.data.data, extra: extra };
 	}
 	async _updateObject(event, formData) {
-		
+
 		let r = await Helper.rollWithErrorHandling(formData.bonus, { errorMessageKey: "DND4EBETA.InvalidHealingBonus"})
 
 		const updateData = {};
@@ -39,12 +39,12 @@ export class SecondWindDialog extends DocumentSheet {
 			);
 		}
 
-		
+
 		updateData[`data.details.secondwind`] = true;
-		
+
 		if(this.object.data.data.details.surges.value > 0)
 			updateData[`data.details.surges.value`] = this.object.data.data.details.surges.value - 1;
-		
+
 			let extra = "";
 			if (this.object.data.data.details.secondwindbon.custom) {
 				extra = this.object.data.data.details.secondwindbon.custom;
@@ -64,8 +64,8 @@ export class SecondWindDialog extends DocumentSheet {
 					</ul>`,
 					// content: this.object.data.name + " uses Second Wind, healing for " + (updateData[`data.attributes.hp.value`] - this.object.data.data.attributes.hp.value) + " HP, and gaining a +2 to all defences until the stars of their next turn."
 				//game.i18n.format("DND4EBETA.ShortRestResult", {name: this.name, dice: -dhd, health: dhp})
-			});		
-		
+			});
+
 		this.object.update(updateData);
-	}	  
+	}
 }

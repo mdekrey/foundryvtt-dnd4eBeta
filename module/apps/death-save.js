@@ -7,7 +7,7 @@ export class DeathSaveDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "death-save",
 			classes: ["dnd4eBeta", "actor-death-save"],
-			template: "systems/dnd4e/templates/apps/death-save.html",
+			template: "systems/dnd4e-mdekrey/templates/apps/death-save.html",
 			width: 500,
 			closeOnSubmit: true
 		});
@@ -24,9 +24,9 @@ export class DeathSaveDialog extends DocumentSheet {
 		};
 	}
 	async _updateObject(event, formData) {
-		
+
 		const updateData = {};
-		
+
 		let message = `Rolling Death Saving Throw`;
 		const parts = [this.object.data.data.details.deathsavebon.value]
 		if (formData.save) {
@@ -47,7 +47,7 @@ export class DeathSaveDialog extends DocumentSheet {
 		rollConfig.critical = this.object.data.data.details.deathsaveCrit || 20;
 		rollConfig.fumble = 9 - formData.save - this.object.data.data.details.deathsavebon.value;
 		const roll = await d20Roll(rollConfig);
-		
+
 		if(roll.total < 10)
 		{
 			updateData[`data.details.deathsavefail`] = this.object.data.data.details.deathsavefail + 1;

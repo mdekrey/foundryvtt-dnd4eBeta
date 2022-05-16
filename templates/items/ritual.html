@@ -39,7 +39,7 @@
 	<section class="sheet-body">
 
 		{{!-- Description Tab --}}
-		{{> "systems/dnd4e/templates/items/parts/item-description.html"}}
+		{{> "systems/dnd4e-mdekrey/templates/items/parts/item-description.html"}}
 
 		{{!-- Details Tab --}}
 		<div class="tab details" data-group="primary" data-tab="details">
@@ -85,7 +85,7 @@
 					</select>
 				</div>
 			</div>
-			
+
 			{{!-- Ability Check --}}
 			<div class="form-group">
 				<label>{{ localize "DND4EBETA.DefaultAbilitySkillCheck" }}</label>
@@ -128,11 +128,11 @@
 					</select>
 					<input type="text" name="data.consume.amount" value="{{data.consume.amount}}" data-dtype="Number"/>
 				</div>
-			</div>	
+			</div>
 		</div>
 
 		{{!-- Macros Tab --}}
 <!-- DO NOT INDENT ME:  All of my indentation will be transferred to the macro text every time it is opened, causing each line of the macro to get steadily more tabs in front of it and march across the screen -->
-{{> "systems/dnd4e/templates/items/parts/item-macro.html"}}
+{{> "systems/dnd4e-mdekrey/templates/items/parts/item-macro.html"}}
 	</section>
 </form>

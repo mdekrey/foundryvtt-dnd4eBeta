@@ -7,7 +7,7 @@ export class SaveThrowDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "save-throw",
 			classes: ["dnd4eBeta", "actor-save-throw"],
-			template: "systems/dnd4e/templates/apps/save-throw.html",
+			template: "systems/dnd4e-mdekrey/templates/apps/save-throw.html",
 			width: 500,
 			closeOnSubmit: true
 		});
@@ -43,7 +43,7 @@ export class SaveThrowDialog extends DocumentSheet {
 		rollConfig.event = event;
 		rollConfig.critical = formData.dc - this.object.data.data.details.saves.value - formData.save || 10;
 		rollConfig.fumble = formData.dc -1 - this.object.data.data.details.saves.value - formData.save || 9;
-		
+
 		const r = await d20Roll(rollConfig);
 
 		if(this.options.effectSave && r.total >= rollConfig.critical){
