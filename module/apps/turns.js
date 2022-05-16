@@ -5,22 +5,22 @@ export class Turns{
         const currentRound = game.combat.round;
         const currentTurn = game.combat.turn;
         const currentInit = game.combat.turns[game.combat.turn].initiative;
-    
+
         const nextTurn = game.combat.turn + 1 < game.combat.turns.length? game.combat.turn + 1 : 0;
         const nextInit = game.combat.turn + 1 < game.combat.turns.length? game.combat.turns[game.combat.turn + 1].initiative :  game.combat.turns[0].initiative;
-    
+
         Helper.rechargeItems(game.combat.turns[nextTurn].actor, ["round"]);
-    
+
         for(let t of game.combat.turns){
             let toDelete = [];
             for(let e of t.token.actor.effects){
-                const effectData = e.data.flags.dnd4e?.effectData;
+                const effectData = e.data.flags.dnd4emdekrey?.effectData;
                 const durationType = effectData?.durationType;
-    
+
                 if(!durationType){
                     continue;
                 }
-    
+
                 if(durationType === "endOfTargetTurn"){
                     if(currentInit <= effectData.durationTurnInit && currentRound >= e.data.duration.rounds && t.id === game.combat.combatant.id
                         || (currentRound > e.data.duration.rounds && t.id === game.combat.combatant.id) ){
@@ -38,7 +38,7 @@ export class Turns{
                             toDelete.push(e.id);
                     }
                 }
-    
+
                 if(currentTurn === game.combat.combatants.size){
                     if(durationType === "endOfUserTurn"){
                         if(effectData.durationTurnInit < currentInit && e.data.duration.rounds <= currentRound){
@@ -48,7 +48,7 @@ export class Turns{
                 }
                 else if(currentTurn === 0){
                     if(durationType === "startOfTargetTurn" || durationType === "startOfUserTurn"){
-    
+
                     }
                 }
             }

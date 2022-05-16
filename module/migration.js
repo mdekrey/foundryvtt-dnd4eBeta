@@ -3,7 +3,7 @@
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
  export const migrateWorld = async function() {
-	ui.notifications.info(`Applying DnD4E System Migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
+	ui.notifications.info(`Applying dnd4emdekrey System Migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
 
 	const migrationData = await getMigrationData();
 
@@ -16,7 +16,7 @@
 				await a.update(updateData, {enforceTypes: false});
 			}
 		} catch(err) {
-			err.message = `Failed dnd4e system migration for Actor ${a.name}: ${err.message}`;
+			err.message = `Failed dnd4emdekrey system migration for Actor ${a.name}: ${err.message}`;
 			console.error(err);
 		}
 	}
@@ -30,7 +30,7 @@
 				await i.update(updateData, {enforceTypes: false});
 			}
 		} catch(err) {
-			err.message = `Failed dnd4e system migration for Item ${i.name}: ${err.message}`;
+			err.message = `Failed dnd4emdekrey system migration for Item ${i.name}: ${err.message}`;
 			console.error(err);
 		}
 	}
@@ -47,7 +47,7 @@
 				s.tokens.forEach(t => t._actor = null);
 			}
 		} catch(err) {
-			err.message = `Failed dnd4e system migration for Scene ${s.name}: ${err.message}`;
+			err.message = `Failed dnd4emdekrey system migration for Scene ${s.name}: ${err.message}`;
 			console.error(err);
 		}
 	}
@@ -60,8 +60,8 @@
 	}
 
 	// Set the migration as complete
-	game.settings.set("dnd4e", "systemMigrationVersion", game.system.data.version);
-	ui.notifications.info(`DnD4E System Migration to version ${game.system.data.version} completed!`, {permanent: true});
+	game.settings.set("dnd4emdekrey", "systemMigrationVersion", game.system.data.version);
+	ui.notifications.info(`dnd4emdekrey System Migration to version ${game.system.data.version} completed!`, {permanent: true});
 };
 
 /* -------------------------------------------- */
@@ -109,7 +109,7 @@ export const migrateCompendium = async function(pack) {
 
 		// Handle migration failures
 		catch(err) {
-			err.message = `Failed dnd4e system migration for document ${doc.name} in pack ${pack.collection}: ${err.message}`;
+			err.message = `Failed dnd4emdekrey system migration for document ${doc.name} in pack ${pack.collection}: ${err.message}`;
 			console.error(err);
 		}
 	}
@@ -155,7 +155,7 @@ export const migrateActorData = function(actor, migrationData) {
 	// 		// if (getProperty(itemData.data, "preparation.prepared") === false) itemUpdate["data.preparation.prepared"] = true;
 	// 		// if (getProperty(itemData.data, "equipped") === false) itemUpdate["data.equipped"] = true;
 	// 		// if (getProperty(itemData.data, "proficient") === false) itemUpdate["data.proficient"] = true;
-	// 	}	
+	// 	}
 
 	// 	// Update the Owned Item
 	// 	if ( !isObjectEmpty(itemUpdate) ) {
@@ -189,8 +189,8 @@ function cleanActorData(actorData) {
 		obj[f] = null;
 		return obj;
 	}, {});
-	if ( actorData.flags.dnd4e ) {
-		actorData.flags.dnd4e = filterObject(actorData.flags.dnd4e, allowedFlags);
+	if ( actorData.flags.dnd4emdekrey ) {
+		actorData.flags.dnd4emdekrey = filterObject(actorData.flags.dnd4emdekrey, allowedFlags);
 	}
 
 	// Return the scrubbed data
@@ -283,7 +283,7 @@ export const getMigrationData = async function() {
  * @private
  */
  function _migrateActorTempHP(actorData, updateData) {
-	const ad = actorData.data;	
+	const ad = actorData.data;
 	const old = ad.attributes.hp.temphp;
 	const hasOld = old !== undefined;
 	if ( hasOld ) {
@@ -310,8 +310,8 @@ export const getMigrationData = async function() {
  */
 export async function purgeFlags(pack) {
 	const cleanFlags = (flags) => {
-		const flags4e = flags.dnd4e || null;
-		return flags4e ? {dnd4e: flags4e} : {};
+		const flags4e = flags.dnd4emdekrey || null;
+		return flags4e ? {dnd4emdekrey: flags4e} : {};
 	};
 	await pack.configure({locked: false});
 	const content = await pack.getContent();

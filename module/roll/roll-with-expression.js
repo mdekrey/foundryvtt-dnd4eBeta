@@ -79,7 +79,7 @@ export class RollWithOriginalExpression extends Roll {
         let tempExpression =  parts.filter(part => !!part)
 
         // do not surround with more brackets if they haven't asked for highlighting as it looks gash
-        if (game.settings.get("dnd4e", "showRollExpression")) {
+        if (game.settings.get("dnd4emdekrey", "showRollExpression")) {
             // regex -> english = look for (ANYTHING)[ANYTHING] - basically it must start with a term in brackets and end with a term in square brackets.
             // The bracketed term and the square bracketed term can only be separated by 0 or more spaces
             const regex = new RegExp('\\(.+\\)[ ]*\\[.+\\]')
@@ -131,7 +131,7 @@ export class RollWithOriginalExpression extends Roll {
     /**
      * Custom chat template to handle displaying the expression attacks
      */
-    static CHAT_TEMPLATE = "systems/dnd4e-mdekrey/templates/chat/roll-template-single.html";
+    static CHAT_TEMPLATE = "systems/dnd4emdekrey/templates/chat/roll-template-single.html";
 
     async render(chatOptions={}) {
         chatOptions = foundry.utils.mergeObject({
@@ -163,7 +163,7 @@ export class RollWithOriginalExpression extends Roll {
     }
 
    getChatData(isPrivate = false) {
-       if (!isPrivate && game.settings.get("dnd4e", "showRollExpression")) {
+       if (!isPrivate && game.settings.get("dnd4emdekrey", "showRollExpression")) {
            return this.surroundFormulaWithExpressionSpanTags(this._formula, this.options.expressionArr)
        }
        else {

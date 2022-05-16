@@ -44,7 +44,7 @@
             <input type="checkbox" name="disabled" {{ checked data.disabled }}/>
         </div>
 
-        
+
         {{#if isActorEffect}}
         <div class="form-group">
             <label>{{ localize "EFFECT.Origin" }}</label>
@@ -58,7 +58,7 @@
         <div class="form-group">
             <label>Only Apply Effect when Equipped?</label>
             <div class="form-fields">
-                <input type="checkbox" name="flags.dnd4e.effectData.equippedRec" data-dtype="Boolean" {{checked effect.flags.dnd4e.effectData.equippedRec}}/>
+                <input type="checkbox" name="flags.dnd4emdekrey.effectData.equippedRec" data-dtype="Boolean" {{checked effect.flags.dnd4emdekrey.effectData.equippedRec}}/>
             </div>
         </div>
 
@@ -74,8 +74,8 @@
         <div class="form-group">
             <label>Apply Effect application on:</label>
             <div class="form-fields">
-                <select name="flags.dnd4e.effectData.powerEffectTypes">
-                    {{#select effect.flags.dnd4e.effectData.powerEffectTypes}}
+                <select name="flags.dnd4emdekrey.effectData.powerEffectTypes">
+                    {{#select effect.flags.dnd4emdekrey.effectData.powerEffectTypes}}
                     <option value=""></option>
                     {{#each config.powerEffectTypes as |label type|}}
                     <option value="{{type}}">{{label}}</option>
@@ -92,8 +92,8 @@
     <section class="tab" data-tab="duration">
         <div class="form-group">
             <label>{{ localize "DND4EBETA.DurationType" }}</label>
-            <select name="flags.dnd4e.effectData.durationType">
-                {{#select effect.flags.dnd4e.effectData.durationType}}
+            <select name="flags.dnd4emdekrey.effectData.durationType">
+                {{#select effect.flags.dnd4emdekrey.effectData.durationType}}
                 <option value=""></option>
                 {{#each config.durationType as |label type|}}
                 <option value="{{type}}">{{label}}</option>
@@ -121,8 +121,8 @@
                 <input type="number" name="duration.rounds" value="{{ data.duration.rounds }}"/>
                 <label>{{ localize "COMBAT.Turns" }}</label>
                 <!-- <input type="number" name="duration.turns" value="{{ data.duration.turns }}"/> -->
-                <input type="number" step="0.01" name="flags.dnd4e.effectData.durationTurnInit" value="{{ effect.flags.dnd4e.effectData.durationTurnInit }}"/>
-                
+                <input type="number" step="0.01" name="flags.dnd4emdekrey.effectData.durationTurnInit" value="{{ effect.flags.dnd4emdekrey.effectData.durationTurnInit }}"/>
+
             </div>
         </div>
         <div class="form-group">
@@ -139,7 +139,7 @@
                 <input type="number" name="duration.startRound" value="{{ data.duration.startRound }}"/>
                 <label>{{ localize "COMBAT.Turn" }}</label>
                 <!-- <input type="number" name="duration.startTurn" value="{{ data.duration.startTurn }}"/> -->
-                <input type="number" step="0.01" name="flags.dnd4e.effectData.startTurnInit" value="{{ effect.flags.dnd4e.effectData.startTurnInit }}"/>
+                <input type="number" step="0.01" name="flags.dnd4emdekrey.effectData.startTurnInit" value="{{ effect.flags.dnd4emdekrey.effectData.startTurnInit }}"/>
 
             </div>
         </div>

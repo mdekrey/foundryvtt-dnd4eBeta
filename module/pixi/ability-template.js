@@ -31,38 +31,38 @@ export default class AbilityTemplate extends MeasuredTemplate {
 	 */
 	static fromItem(item) {
 		const templateShape = DND4EBETA.areaTargetTypes[item.data.data.rangeType];
-	
+
 		console.log(item);
 		let distance = this.getDistanceCalc(item);
 
-		let flags = {dnd4e:{templateType:templateShape}};
+		let flags = {dnd4emdekrey:{templateType:templateShape}};
 
 		if(item.data.data.rangeType === "closeBlast" || item.data.data.rangeType === "rangeBlast") {
 			distance *= Math.sqrt(2);
 		}
 		else if(item.data.data.rangeType === "rangeBurst") {
-			flags.dnd4e.templateType = "rectCenter";
+			flags.dnd4emdekrey.templateType = "rectCenter";
 			distance += 0.5;
 		}
 		else if(item.data.data.rangeType === "closeBurst") {
-			flags.dnd4e.templateType = "rectCenter";
+			flags.dnd4emdekrey.templateType = "rectCenter";
 			switch(item.parent.data.data.details.size) {
 				case 'tiny':
 				case 'sm':
 				case 'med':
-					flags.dnd4e.closeBurst = 'med';
+					flags.dnd4emdekrey.closeBurst = 'med';
 					distance += 0.5;
 					break;
 				case 'lg':
-					flags.dnd4e.closeBurst = 'lg';
+					flags.dnd4emdekrey.closeBurst = 'lg';
 					distance += 1;
 					break;
 				case  'huge':
-					flags.dnd4e.closeBurst = 'huge';
+					flags.dnd4emdekrey.closeBurst = 'huge';
 					distance += 1.5;
 					break;
 				case 'grg':
-					flags.dnd4e.closeBurst = 'grg';
+					flags.dnd4emdekrey.closeBurst = 'grg';
 					distance += 2;
 					break;
 				default:
@@ -70,7 +70,7 @@ export default class AbilityTemplate extends MeasuredTemplate {
 			}
 		}
 		// if(item.data.data.rangeType === "closeBurst" || item.data.data.rangeType === "rangeBurst") distance = Math.sqrt(2) * ( 1 + 2*distance);
-	
+
 		if ( !templateShape ) return null;
 
 		// Prepare template data
@@ -181,12 +181,12 @@ export default class AbilityTemplate extends MeasuredTemplate {
 	}
 
 	static _getCircleSquareShape(wrapper, distance){
-		if(this.data.flags.dnd4e?.templateType === "rectCenter" 
-		|| (this.data.t === "circle" && ui.controls.activeControl === "measure" && ui.controls.activeTool === "rectCenter" && !this.data.flags.dnd4e?.templateType)) {
+		if(this.data.flags.dnd4emdekrey?.templateType === "rectCenter"
+		|| (this.data.t === "circle" && ui.controls.activeControl === "measure" && ui.controls.activeTool === "rectCenter" && !this.data.flags.dnd4emdekrey?.templateType)) {
 			let r = Ray.fromAngle(0, 0, 0, distance),
 			dx = r.dx - r.dy,
 			dy = r.dy + r.dx;
-	
+
 			const points = [
 				dx, dy,
 				dy, -dx,
@@ -199,26 +199,26 @@ export default class AbilityTemplate extends MeasuredTemplate {
 			return (wrapper(distance))
 		}
 	}
-	
+
 	static _refreshRulerBurst(wrapper){
-		if( (this.data.flags.dnd4e?.templateType === "rectCenter"  && this.data.t === "circle")
-			|| (this.data.t === "circle" && ui.controls.activeControl === "measure" && ui.controls.activeTool === "rectCenter" && !this.data.flags.dnd4e?.templateType)) {
+		if( (this.data.flags.dnd4emdekrey?.templateType === "rectCenter"  && this.data.t === "circle")
+			|| (this.data.t === "circle" && ui.controls.activeControl === "measure" && ui.controls.activeTool === "rectCenter" && !this.data.flags.dnd4emdekrey?.templateType)) {
 				let d;
 				let text;
-	
-				if(this.data.flags.dnd4e?.closeBurst){
-					switch(this.data.flags.dnd4e?.closeBurst){
+
+				if(this.data.flags.dnd4emdekrey?.closeBurst){
+					switch(this.data.flags.dnd4emdekrey?.closeBurst){
 						case 'lg':
 							d = Math.max(Math.round((this.data.distance -1.0 )* 10) / 10, 0);
-							text = `${game.i18n.localize('DND4EBETA.rangeCloseBurst')} ${d} \n(${DND4EBETA.actorSizes[this.data.flags.dnd4e.closeBurst]})`;
+							text = `${game.i18n.localize('DND4EBETA.rangeCloseBurst')} ${d} \n(${DND4EBETA.actorSizes[this.data.flags.dnd4emdekrey.closeBurst]})`;
 							break;
 						case 'huge':
 							d = Math.max(Math.round((this.data.distance -1.5 )* 10) / 10, 0);
-							text = `${game.i18n.localize('DND4EBETA.rangeCloseBurst')} ${d} \n(${DND4EBETA.actorSizes[this.data.flags.dnd4e.closeBurst]})`;
+							text = `${game.i18n.localize('DND4EBETA.rangeCloseBurst')} ${d} \n(${DND4EBETA.actorSizes[this.data.flags.dnd4emdekrey.closeBurst]})`;
 							break;
 						case 'grg':
 							d = Math.max(Math.round((this.data.distance -2.0 )* 10) / 10, 0);
-							text = `${game.i18n.localize('DND4EBETA.rangeCloseBurst')} ${d} \n(${DND4EBETA.actorSizes[this.data.flags.dnd4e.closeBurst]})`;
+							text = `${game.i18n.localize('DND4EBETA.rangeCloseBurst')} ${d} \n(${DND4EBETA.actorSizes[this.data.flags.dnd4emdekrey.closeBurst]})`;
 							break;
 						default:
 							d = Math.max(Math.round((this.data.distance -0.5 )* 10) / 10, 0);
@@ -228,7 +228,7 @@ export default class AbilityTemplate extends MeasuredTemplate {
 					d = Math.max(Math.round((this.data.distance -0.5 )* 10) / 10, 0);
 					text = `Burst ${d}`;
 				}
-	
+
 				this.hud.ruler.text = text;
 				this.hud.ruler.position.set(this.ray.dx + 10, this.ray.dy + 5);
 		} else {

@@ -22,7 +22,7 @@ export default class Item4e extends Item {
 			const data = this.data.data
 			// does it have an old damage expression
 			if (data.damage.parts?.length > 0) {
-				console.log("DnD4e: Updating an obsolete consumable that somehow still had a parts roll")
+				console.log("dnd4emdekrey: Updating an obsolete consumable that somehow still had a parts roll")
 				// ok so need to fix it
 				if (data.damage.parts.map(d => d[1]).includes("healing") && !changed.data.hit?.healFormula) {
 					foundry.utils.setProperty(changed, "data.hit.healFormula", data.damage.parts[0][0])
@@ -32,7 +32,7 @@ export default class Item4e extends Item {
 				// non healing damage expressions didn't work anyway
 			}
 			if (data.oldConsumableNeedsUpdate === true) {
-				console.log("DnD4e: Updating an obsolete consumable")
+				console.log("dnd4emdekrey: Updating an obsolete consumable")
 				foundry.utils.setProperty(changed, "data.damage.parts", [])
 				foundry.utils.setProperty(changed, "data.hit.healFormula", data.hit.healFormula)
 				foundry.utils.setProperty(changed, "data.hit.isHealing", data.hit.isHealing)
@@ -43,7 +43,7 @@ export default class Item4e extends Item {
 		if (this.data.type === "ritual") {
 			const data = this.data.data
 			if (data.oldRitualNeedsUpdating === true) {
-				console.log("DnD4e: Updating an obsolete ritual")
+				console.log("dnd4emdekrey: Updating an obsolete ritual")
 				foundry.utils.setProperty(changed, "data.formula", "@attribute")
 				delete data.oldRitualNeedsUpdating
 			}
@@ -227,7 +227,7 @@ export default class Item4e extends Item {
 			this.data.data.consumableType);
 		if ( requireEquipped && (this.data.data.equipped === false) ) return true;
 
-		return this.data.data.attunement === CONFIG.DND4E.attunementTypes.REQUIRED;
+		return this.data.data.attunement === CONFIG.dnd4emdekrey.attunementTypes.REQUIRED;
 	}
 
 	/* -------------------------------------------- */
@@ -446,7 +446,7 @@ export default class Item4e extends Item {
 			templateType =  this.data.type
 			templateData.abilityCheck  = Helper.byString(this.data.data.attribute.replace(".mod",".label").replace(".total",".label"), this.actor.data.data);
 		}
-		const template = `systems/dnd4e-mdekrey/templates/chat/${templateType}-card.html`;
+		const template = `systems/dnd4emdekrey/templates/chat/${templateType}-card.html`;
 		let html = await renderTemplate(template, templateData);
 
 		if(templateData.item.type === "power") {

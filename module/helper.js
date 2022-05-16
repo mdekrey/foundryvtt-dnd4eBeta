@@ -80,7 +80,7 @@ export class Helper {
 					if(itemData.weaponType === "any") {
 						return i;
 					}
-					
+
 					if(itemData.weaponType === "meleeRanged") {
 						if(setMelee.includes(i.data.data.weaponType) || setRanged.includes(i.data.data.weaponType) )
 							if(itemData.weaponUse === "defaultOH" && (i.data.data.weaponHand === "hOff"))
@@ -92,7 +92,7 @@ export class Helper {
 						if(setMelee.includes(i.data.data.weaponType) )
 							if(itemData.weaponUse === "defaultOH" && (i.data.data.weaponHand === "hOff"))
 								return i;
-							else if(itemData.weaponUse === "default") 
+							else if(itemData.weaponUse === "default")
 								return i;
 					}
 					else if(itemData.weaponType === "ranged") {
@@ -147,7 +147,7 @@ export class Helper {
 
 
 	static async applyEffects(arrayOfParts, rollData, actorData, powerData, weaponData = null, effectType) {
-		const debug = game.settings.get("dnd4e", "debugEffectBonus") ? `D&D4eBeta |` : ""
+		const debug = game.settings.get("dnd4emdekrey", "debugEffectBonus") ? `D&D4eBeta |` : ""
 		if (actorData.effects) {
 			const powerInnerData = powerData.data
 			const weaponInnerData = weaponData?.data
@@ -370,16 +370,16 @@ export class Helper {
 
 			newFormula = newFormula.replaceAll("@profBonusO",weaponInnerData.profBonus || 0);
 			newFormula = newFormula.replaceAll("@profImpBonusO", weaponInnerData.profImpBonus || 0);
-			
+
 			newFormula = newFormula.replaceAll("@profImpBonus", weaponInnerData.proficientI ? weaponInnerData.profImpBonus || 0 : 0);
 			newFormula = newFormula.replaceAll("@profBonus", weaponInnerData.proficient ? weaponInnerData.profBonus || 0 : 0);
 			newFormula = newFormula.replaceAll("@enhanceImp", weaponInnerData.proficientI ? weaponInnerData.enhance || 0 : 0);
 			newFormula = newFormula.replaceAll("@enhance", weaponInnerData.enhance || 0);
-			
+
 
 			newFormula = this.replaceData (newFormula, weaponInnerData);
-			
-			
+
+
 			//deprecated, kept for legacy purposes and because it's really handy for High Crit Weapons!
 			// make sure to keep the dice formula same as main.  Definite candidate for a future refactor.
 			if(newFormula.includes("@wepDice")) {
@@ -409,7 +409,7 @@ export class Helper {
 				newFormula = newFormula.slice(0, indexStart) + newFormula.slice(indexEnd, newFormula.length);
 				newFormula = newFormula.replaceAll("@wepDice", dice);
 			}
-			
+
 			// New method to handle base power dice from dropdown
 			// Includes handling of:
 			//	-	weapon based damage
@@ -419,11 +419,11 @@ export class Helper {
 			if(newFormula.includes("@powBase")) {
 				let quantity = powerInnerData.hit.baseQuantity;
 				let diceType = powerInnerData.hit.baseDiceType.toLowerCase();
-				
+
 				if(quantity === "") quantity = 1;
-				
+
 				let dice = "";
-				
+
 				// Handle Weapon Type Damage
 				if(diceType.includes("weapon")){
 					let parts = weaponInnerData.damageDice.parts;
@@ -470,7 +470,7 @@ export class Helper {
 					newFormula = newFormula.replaceAll("@wepMax", dice);
 				}
 			}
-			
+
 			// New method to handle base power dice from dropdown for critical hits
 			// Includes handling of:
 			//	-	weapon based damage
@@ -490,7 +490,7 @@ export class Helper {
 				} else {
 					quantity = 1;
 				}
-				
+
 
 				// Handle Weapon Type Damage
 				if(diceType.includes("weapon")){
@@ -522,10 +522,10 @@ export class Helper {
 			newFormula = newFormula.replaceAll("@wepAttack", "0");
 			newFormula = newFormula.replaceAll("@wepDamage", "0");
 			newFormula = newFormula.replaceAll("@wepCritBonus", "0");
-			
+
 			newFormula = newFormula.replaceAll("@wepDiceNum", "0");
 			newFormula = newFormula.replaceAll("@wepDiceDamage", "0");
-			
+
 			newFormula = newFormula.replaceAll("@impAttackO", "0" );
 			newFormula = newFormula.replaceAll("@impDamageO", "0");
 
@@ -534,7 +534,7 @@ export class Helper {
 
 			newFormula = newFormula.replaceAll("@profBonusO", "0");
 			newFormula = newFormula.replaceAll("@profImpBonusO", "0");
-			
+
 			newFormula = newFormula.replaceAll("@profImpBonus", "0");
 			newFormula = newFormula.replaceAll("@profBonus", "0");
 			newFormula = newFormula.replaceAll("@enhanceImp", "0");
@@ -556,14 +556,14 @@ export class Helper {
 			if(newFormula.includes("@powBase")) {
 				let quantity = powerInnerData.hit.baseQuantity;
 				let diceType = powerInnerData.hit.baseDiceType;
-				
+
 				if(diceType == "weapon"){
 					newFormula = newFormula.replaceAll("@powBase", '0');
 				} else {
 					if(quantity === "") quantity = 1;
-				
+
 					let dice = "";
-					
+
 					// Handle Flat Type Damage
 					if(diceType.includes("flat")) {
 						dice += `${quantity}`;
@@ -572,7 +572,7 @@ export class Helper {
 					else{
 						dice += `${quantity}${diceType}`;
 					}
-	
+
 					dice = this.commonReplace(dice, actorData, powerInnerData, weaponInnerData, depth-1)
 					newFormula = newFormula.replaceAll("@powBase", dice);
 				}
@@ -586,13 +586,13 @@ export class Helper {
 				let diceType = powerInnerData.hit.baseDiceType.toLowerCase();
 				let rQuantity = new Roll(`${quantity}`)
 				rQuantity.evaluate({maximize: true, async: false});
-				
+
 				if(this._isNumber(rQuantity.result)) {
 					quantity = rQuantity.result;
 				} else {
 					quantity = 1;
 				}
-				
+
 				// Handle Weapon Type Damage
 				if(diceType.includes("weapon") && weaponInnerData){
 					let parts = weaponInnerData.damageDice.parts;
@@ -613,7 +613,7 @@ export class Helper {
 				}
 				dice = this.commonReplace(dice, actorData, powerInnerData, weaponInnerData, depth-1)
 				newFormula = newFormula.replaceAll("@powMax", dice);
-			}			
+			}
 		}
 
 		// this is done at the bottom, because I don't want to iterating the entire actor effects collection unless I have to
@@ -621,7 +621,7 @@ export class Helper {
 		// Depth > 0 check is here to prevent an infinite recursion situation as this will call to common replace in case the variable uses a formula
 		// having got to the bottom of common replace, check to see if there are any more @variables left.  If there aren't, then don't bother going any further
 		if (actorData?.effects && depth > 0 && newFormula.includes('@')) {
-			const debug = game.settings.get("dnd4e", "debugEffectBonus") ? `D&D4eBeta |` : ""
+			const debug = game.settings.get("dnd4emdekrey", "debugEffectBonus") ? `D&D4eBeta |` : ""
 			if (debug) {
 				console.log(`${debug} Substituting '${formula}', end of processing produced '${newFormula}' which still contains an @variable.  Searching active effects for a suitable variable`)
 			}
@@ -756,7 +756,7 @@ export class Helper {
 
 		if(['melee', 'meleeRanged', 'ranged'].includes(chatData.weaponType) ) {
 			tag.push(`Weapon`);
-		} 
+		}
 		else if (chatData.weaponType === "implement") {
 			tag.push(`Implement`);
 		}
@@ -777,7 +777,7 @@ export class Helper {
 		}
 		tag.sort();
 		powerDetail += tag.length > 0 ? `, ${tag.join(', ')}</b></span>` : `</b></span>`;
-		
+
 		powerDetail += `<br><span><b>${CONFIG.DND4EBETA.abilityActivationTypes[chatData.actionType]} •`;
 
 		if(chatData.rangeType === "weapon") {
@@ -827,7 +827,7 @@ export class Helper {
 		if(!chatData.postEffect && chatData.effect.detail) {
 			powerDetail += `<p class="alt"><b>${game.i18n.localize("DND4EBETA.Effect")}:</b> ${chatData.effect.detail}</p>`;
 		}
-		
+
 		if(!chatData.postSpecial && chatData.special) {
 			powerDetail += `<p><b>${game.i18n.localize("DND4EBETA.Special")}:</b> ${chatData.special}</p>`;
 			for (let [i, entry] of Object.entries(chatData.specialAdd.parts)){
@@ -904,10 +904,10 @@ export class Helper {
 	}
 
 	static async endEffects(actor, targetArray){
-		// const effects = actor.effects.filter(effect => targetArray.includes(effect.data.flags.dnd4e.effectData.durationType));
+		// const effects = actor.effects.filter(effect => targetArray.includes(effect.data.flags.dnd4emdekrey.effectData.durationType));
 		const effects = [];
 		for(let e of actor.effects){
-			if(targetArray.includes(e.data.flags.dnd4e?.effectData?.durationType)){
+			if(targetArray.includes(e.data.flags.dnd4emdekrey?.effectData?.durationType)){
 				effects.push(e.id);
 			}
 		}
@@ -958,7 +958,7 @@ export class Helper {
 	static async applyEffectsToTokens(effectMap, tokenTarget, condition, parent){
 		const combat = game.combat;
 		for(let e of effectMap){
-			if(e.data.flags.dnd4e.effectData.powerEffectTypes === condition){
+			if(e.data.flags.dnd4emdekrey.effectData.powerEffectTypes === condition){
 				for(let t of tokenTarget){
 					let effectData = e.data;
 					effectData.sourceName = parent.name
@@ -968,20 +968,20 @@ export class Helper {
 					const flags = e.data.flags;
 					duration.combat = combat?.id || "None Combat";
 					duration.startRound = combat?.round || 0;
-					flags.dnd4e.effectData.startTurnInit = combat?.turns[combat.turn].data.initiative || 0;
+					flags.dnd4emdekrey.effectData.startTurnInit = combat?.turns[combat.turn].data.initiative || 0;
 
 					const userTokenId = this.getTokenIdForLinkedActor(parent);
 					const userInit = this.getInitiativeByToken(this.getTokenIdForLinkedActor(parent));
 					const targetInit = t ? this.getInitiativeByToken(t.id) : userInit;
 					const currentInit = this.getCurrentTurnInitiative();
 
-					if(flags.dnd4e.effectData.durationType === "endOfTargetTurn" || flags.dnd4e.effectData.durationType === "startOfTargetTurn"){
+					if(flags.dnd4emdekrey.effectData.durationType === "endOfTargetTurn" || flags.dnd4emdekrey.effectData.durationType === "startOfTargetTurn"){
 						duration.rounds = combat? currentInit > targetInit ? combat.round : combat.round + 1 : 0;
-						flags.dnd4e.effectData.durationTurnInit = t ? this.getInitiativeByToken(t.data._id) : userInit;						
+						flags.dnd4emdekrey.effectData.durationTurnInit = t ? this.getInitiativeByToken(t.data._id) : userInit;
 					}
-					else if(flags.dnd4e.effectData.durationType === "endOfUserTurn" || flags.dnd4e.effectData.durationType === "startOfUserTurn" ){
+					else if(flags.dnd4emdekrey.effectData.durationType === "endOfUserTurn" || flags.dnd4emdekrey.effectData.durationType === "startOfUserTurn" ){
 						duration.rounds = combat? currentInit > userInit ? combat.round : combat.round + 1 : 0;
-						flags.dnd4e.effectData.durationTurnInit = userInit;
+						flags.dnd4emdekrey.effectData.durationTurnInit = userInit;
 					}
 
 					const newEffectData = {
@@ -1001,14 +1001,14 @@ export class Helper {
 					let actor;
 					if(t?.actor){
 						actor = t.actor;
-					} else { //extra condition for when actors this linked data target self						
+					} else { //extra condition for when actors this linked data target self
 						actor = parent;
 					}
 
 					if(game.user.isGM){
 						actor.newActiveEffect(newEffectData);
 					} else {
-						game.socket.emit('system.dnd4e', {
+						game.socket.emit('system.dnd4emdekrey', {
 							actorID: actor.id,
 							tokenID: t?.id || null,
 							operation: 'applyTokenEffect',

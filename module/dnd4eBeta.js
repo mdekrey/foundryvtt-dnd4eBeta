@@ -145,14 +145,14 @@ Hooks.once("ready",  function() {
 	Hooks.on("hotbarDrop", (bar, data, slot) => macros.create4eMacro(data, slot));
 
 		// Add socket listener for applying activeEffects on targets that users do not own
-		game.socket.on('system.dnd4e', (data) => {
+		game.socket.on('system.dnd4emdekrey', (data) => {
 			if(data.operation === 'applyTokenEffect') handleApplyEffectToToken(data);
 			else ItemSheet4e._handleShareItem(data);
 		});
 
 	// Determine whether a system migration is required and feasible
 	if ( !game.user.isGM ) return;
-	const currentVersion = game.settings.get("dnd4e", "systemMigrationVersion");
+	const currentVersion = game.settings.get("dnd4emdekrey", "systemMigrationVersion");
 	const NEEDS_MIGRATION_VERSION = "0.2.64";
 	const COMPATIBLE_MIGRATION_VERSION = 0.80;
 	//if no current Version is set, run migration which will set value
@@ -162,7 +162,7 @@ Hooks.once("ready",  function() {
 
 	// Perform the migration
 	if ( currentVersion && isNewerVersion(COMPATIBLE_MIGRATION_VERSION, currentVersion) ) {
-		const warning = `Your DnD4e system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`;
+		const warning = `Your dnd4emdekrey system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`;
 		ui.notifications.error(warning, {permanent: true});
 	}
 	migrations.migrateWorld();
@@ -185,7 +185,7 @@ Hooks.on("renderChatMessage", (app, html, data) => {
 	chat.displayDamageOptionButtons(app, html, data)
 
 	// Optionally collapse the content
-	if (game.settings.get("dnd4e", "autoCollapseItemCards")) html.find(".card-content").hide();
+	if (game.settings.get("dnd4emdekrey", "autoCollapseItemCards")) html.find(".card-content").hide();
 });
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
@@ -197,7 +197,7 @@ Hooks.on("renderChatLog", (app, html, data) => {
 Hooks.on("canvasInit", function() {
 
 	// Extend Diagonal Measurement
-	canvas.grid.diagonalRule = game.settings.get("dnd4e", "diagonalMovement");
+	canvas.grid.diagonalRule = game.settings.get("dnd4emdekrey", "diagonalMovement");
 	SquareGrid.prototype.measureDistances = measureDistances;
 
 	// Extend Token Resource Bars
@@ -276,25 +276,25 @@ const apply = (wrapped, owner, change) => {
 Hooks.once('init', async function() {
 
 	libWrapper.register(
-		'dnd4e-mdekrey',
+		'dnd4emdekrey',
 		'ActiveEffect.prototype.apply',
 		apply
 	);
 
 	libWrapper.register(
-		'dnd4e-mdekrey',
+		'dnd4emdekrey',
 		'MeasuredTemplate.prototype._getCircleShape',
 		AbilityTemplate._getCircleSquareShape
 	);
 
 	libWrapper.register(
-		'dnd4e-mdekrey',
+		'dnd4emdekrey',
 		'MeasuredTemplate.prototype._refreshRulerText',
 		AbilityTemplate._refreshRulerBurst
 	);
 
 	libWrapper.register(
-		'dnd4e-mdekrey',
+		'dnd4emdekrey',
 		'Combat.prototype.nextTurn',
 		Turns._onNextTurn
 	)
@@ -312,7 +312,7 @@ Hooks.on("getSceneControlButtons", function(controls){
 
 Hooks.on("createMeasuredTemplate", (obj,temp,userID) => {
 	//set flag based on wich tool is selected
-	if(game.userId === userID && !obj.data.flags.dnd4e?.templateType) {
-		obj.setFlag("dnd4e", 'templateType',ui.controls.activeControl === "measure" ? ui.controls.activeTool : obj.data.t);
+	if(game.userId === userID && !obj.data.flags.dnd4emdekrey?.templateType) {
+		obj.setFlag("dnd4emdekrey", 'templateType',ui.controls.activeControl === "measure" ? ui.controls.activeTool : obj.data.t);
 	}
 });

@@ -9,11 +9,11 @@ import { Helper } from "../helper.js"
 export class Actor4e extends Actor {
 	constructor(data, context) {
 		super(data, context);
-		
+
 		//Set default NPC Math Options
 		if(data.type==='NPC'){
 			if(data?.data?.advancedCals == undefined){
-				this.data.data.advancedCals = game.settings.get("dnd4e", "npcMathOptions");
+				this.data.data.advancedCals = game.settings.get("dnd4emdekrey", "npcMathOptions");
 			}
 		}
 
@@ -27,7 +27,7 @@ export class Actor4e extends Actor {
 
 	/** @override */
 	async update(data, options={}) {
-		
+
 		//used to call changes to HP scrolling text
 		if(data[`data.attributes.hp.value`]){
 			options.dhp = data[`data.attributes.hp.value`] - this.data.data.attributes.hp.value;
@@ -49,12 +49,12 @@ export class Actor4e extends Actor {
 			if(this.data.data.details.tier != Math.clamped(Math.floor(( data[`data.details.level`] - 1 ) /10 + 1),1,3)){
 				this.data.data.details.tier = Math.clamped(Math.floor(( data[`data.details.level`] - 1 ) /10 + 1),1,3);
 				data[`data.details.tier`] = this.data.data.details.tier;
-			}		
+			}
 		}
 		for (let [id, abl] of Object.entries(this.data.data.abilities)){
 			if(data[`data.abilities.${id}.value`]){
 				if(this.data.data.abilities[id].mod != Math.floor((data[`data.abilities.${id}.value`] - 10) / 2)){
-					data[`data.abilities.${id}.mod`] = Math.floor((data[`data.abilities.${id}.value`] - 10) / 2) 
+					data[`data.abilities.${id}.mod`] = Math.floor((data[`data.abilities.${id}.value`] - 10) / 2)
 					console.log(id)
 				}
 			}
@@ -137,7 +137,7 @@ export class Actor4e extends Actor {
 		const data = actorData.data;
 		const bonuses = getProperty(data, "bonuses.abilities") || {};
 
-		this.data.data.halfLevelOptions = game.settings.get("dnd4e", "halfLevelOptions");
+		this.data.data.halfLevelOptions = game.settings.get("dnd4emdekrey", "halfLevelOptions");
 
 		// Ability modifiers and saves
 		// Character All Ability Check" and All Ability Save bonuses added when rolled since not a fixed value.
@@ -148,7 +148,7 @@ export class Actor4e extends Actor {
 			abl.mod = Math.floor((abl.value - 10) / 2);
 			abl.modHalf = abl.mod + Math.floor(data.details.level / 2);
 			abl.prof = (abl.proficient || 0);
-			if(game.settings.get("dnd4e", "halfLevelOptions")) {
+			if(game.settings.get("dnd4emdekrey", "halfLevelOptions")) {
 				abl.saveBonus = saveBonus;
 				abl.checkBonus = checkBonus;
 			} else {
@@ -172,13 +172,13 @@ export class Actor4e extends Actor {
 		const data = actorData.data;
 
 		this.prepareDerivedData();
-		
+
 		//HP auto calc
 		if(data.attributes.hp.autototal)
 		{
 			data.attributes.hp.max = data.attributes.hp.perlevel * (data.details.level - 1) + data.attributes.hp.starting + data.attributes.hp.feat + data.attributes.hp.misc + data.abilities.con.value;
 		}
-		
+
 		//Set Health related values
 		if(!(data.details.surgeBon.bonus.length === 1 && jQuery.isEmptyObject(data.details.surgeBon.bonus[0]))) {
 			for( const b of data.details.surgeBon.bonus) {
@@ -193,7 +193,7 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		
+
 		if(!(data.details.secondwindbon.bonus.length === 1 && jQuery.isEmptyObject(data.details.secondwindbon.bonus[0]))) {
 			for( const b of data.details.secondwindbon.bonus) {
 				if(b.active && Helper._isNumber(b.value)) {
@@ -207,7 +207,7 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		
+
 		data.details.bloodied = Math.floor(data.attributes.hp.max / 2);
 		data.details.surgeValue = Math.floor(data.details.bloodied / 2) + data.details.surgeBon.value;
 		data.attributes.hp.min = -data.details.bloodied;
@@ -257,16 +257,16 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		
+
 		//Weight & Encumbrance
 		data.encumbrance = this._computeEncumbrance(actorData);
-			
-		// const feats = DND4E.characterFlags;
+
+		// const feats = dnd4emdekrey.characterFlags;
 		// const athlete = flags.remarkableAthlete;
 		// const joat = flags.jackOfAllTrades;
 		// const observant = flags.observantFeat;
-		// const skillBonus = Number.isNumeric(bonuses.skill) ? parseInt(bonuses.skill) :  0;	
-	
+		// const skillBonus = Number.isNumeric(bonuses.skill) ? parseInt(bonuses.skill) :  0;
+
 		// Should I just write some proper migration code? Naaaaaa
 		// if(data.attributes.hp.temphp){
 		// 	if(!data.attributes.temphp){
@@ -295,7 +295,7 @@ export class Actor4e extends Actor {
 		else {
 			data.defences.ac.ability = "";
 		}
-		
+
 		//set mods for defences
 		data.defences.fort.ability = (data.abilities.str.value >= data.abilities.con.value) ? "str" : "con";
 		data.defences.ref.ability = (data.abilities.dex.value >= data.abilities.int.value) ? "dex" : "int";
@@ -313,7 +313,7 @@ export class Actor4e extends Actor {
 
 		//calc init
 		let initBonusValue = 0;
-		if(!game.settings.get("dnd4e", "halfLevelOptions")){
+		if(!game.settings.get("dnd4emdekrey", "halfLevelOptions")){
 			initBonusValue += Math.floor(data.details.level / 2);
 		}
 
@@ -336,10 +336,10 @@ export class Actor4e extends Actor {
 		} else {
 			data.attributes.init.value = data.attributes.init.ability ? data.abilities[data.attributes.init.ability].mod + initBonusValue : initBonusValue;
 		}
-		
+
 		if(data.attributes.init.value > 999)
 			data.attributes.init.value = 999;
-		
+
 		//calc movespeed
 		let baseMoveBonusValue = 0;
 		if(!(data.movement.base.bonus.length === 1 && jQuery.isEmptyObject(data.movement.base.bonus[0]))) {
@@ -362,7 +362,7 @@ export class Actor4e extends Actor {
 		}
 		data.movement.base.bonusValue = baseMoveBonusValue;
 
-		
+
 		let walkBonusValue = 0;
 		if(!(data.movement.walk.bonus.length === 1 && jQuery.isEmptyObject(data.movement.walk.bonus[0]))) {
 			for( const b of data.movement.walk.bonus) {
@@ -377,7 +377,7 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		data.movement.walk.bonusValue = walkBonusValue;	
+		data.movement.walk.bonusValue = walkBonusValue;
 
 		let chargeBonusValue = 0;
 		if(!(data.movement.charge.bonus.length === 1 && jQuery.isEmptyObject(data.movement.charge.bonus[0]))) {
@@ -393,8 +393,8 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		data.movement.charge.bonusValue = chargeBonusValue;	
-		
+		data.movement.charge.bonusValue = chargeBonusValue;
+
 		let runBonusValue = 0;
 		if(!(data.movement.run.bonus.length === 1 && jQuery.isEmptyObject(data.movement.run.bonus[0]))) {
 			for( const b of data.movement.run.bonus) {
@@ -410,7 +410,7 @@ export class Actor4e extends Actor {
 			}
 		}
 		data.movement.run.bonusValue = runBonusValue;
-	
+
 		let climbBonusValue = 0;
 		if(!(data.movement.climb.bonus.length === 1 && jQuery.isEmptyObject(data.movement.climb.bonus[0]))) {
 			for( const b of data.movement.climb.bonus) {
@@ -425,7 +425,7 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		data.movement.climb.bonusValue = climbBonusValue;	
+		data.movement.climb.bonusValue = climbBonusValue;
 
 		let shiftBonusValue = 0;
 		if(!(data.movement.shift.bonus.length === 1 && jQuery.isEmptyObject(data.movement.shift.bonus[0]))) {
@@ -441,40 +441,40 @@ export class Actor4e extends Actor {
 				}
 			}
 		}
-		data.movement.shift.bonusValue = shiftBonusValue;	
+		data.movement.shift.bonusValue = shiftBonusValue;
 
 		data.movement.base.value += data.movement.base.base +  baseMoveBonusValue + data.movement.base.temp;
-		
+
 		let walkForm = eval(Helper.replaceData(data.movement.walk.formula.replace(/@base/g,data.movement.base.base).replace(/@armour/g,data.movement.base.armour), data).replace(/[^-()\d/*+. ]/g, ''));
 		data.movement.walk.value += walkForm + walkBonusValue + data.movement.base.temp;
-		
+
 		if (data.movement.walk.value < 0)
 			data.movement.walk.value = 0;
-		
+
 		let runForm = eval(Helper.replaceData(data.movement.run.formula.replace(/@base/g,data.movement.base.base).replace(/@armour/g,data.movement.base.armour), data).replace(/[^-()\d/*+. ]/g, ''));
 		data.movement.run.value += runForm + runBonusValue + data.movement.run.temp;
-		
+
 		if (data.movement.run.value < 0)
 			data.movement.run.value = 0;
 
 		let chargeForm = eval(Helper.replaceData(data.movement.charge.formula.replace(/@base/g,data.movement.base.base).replace(/@armour/g,data.movement.base.armour), data).replace(/[^-()\d/*+. ]/g, ''));
 		data.movement.charge.value += chargeForm + chargeBonusValue + data.movement.charge.temp;
-		
+
 		if (data.movement.charge.value < 0)
 			data.movement.charge.value = 0;
 
 		let climbeForm = eval(Helper.replaceData(data.movement.climb.formula.replace(/@base/g,data.movement.base.base).replace(/@armour/g,data.movement.base.armour), data).replace(/[^-()\d/*+. ]/g, ''));
 		data.movement.climb.value += climbeForm;
-		
+
 		if (data.movement.climb.value < 0)
 			data.movement.climb.value = 0;
-		
+
 		let shiftForm = eval(Helper.replaceData(data.movement.shift.formula.replace(/@base/g,data.movement.base.base).replace(/@armour/g,data.movement.base.armour),data).replace(/[^-()\d/*+. ]/g, ''));
 		data.movement.shift.value += shiftForm;
-		
+
 		if (data.movement.shift.value < 0)
 			data.movement.shift.value = 0;
-			
+
 		//Passive Skills
 		for (let [id, pas] of Object.entries(data.passive)) {
 			let passiveBonusValue = 0;
@@ -516,7 +516,7 @@ export class Actor4e extends Actor {
 			mod.value += mod.class + mod.feat + mod.item + mod.power + mod.race + modifierBonusValue + (mod.armourPen || 0);
 			mod.label = game.i18n.localize(DND4EBETA.modifiers[id]);
 		}
-		
+
 		//Resistances & Weaknesses
 		for (let [id, res] of Object.entries(data.resistances)) {
 
@@ -543,18 +543,18 @@ export class Actor4e extends Actor {
 			res.value += res.armour + resBonusValue;
 			res.label = game.i18n.localize(DND4EBETA.damageTypes[id]); //.localize("");
 		}
-		
+
 		//Magic Items
 		data.magicItemUse.perDay = Math.clamped(Math.floor(( data.details.level - 1 ) /10 + 1),1,3) + data.magicItemUse.bonusValue + data.magicItemUse.milestone;
 
 	}
 
-	calcDefenceStatsCharacter(data) {		
+	calcDefenceStatsCharacter(data) {
 		for (let [id, def] of Object.entries(data.defences)) {
-			
+
 			def.label = game.i18n.localize(DND4EBETA.def[id]);
 			def.title = game.i18n.localize(DND4EBETA.defensives[id]);
-						
+
 			let defBonusValue = 0;
 			if(!(def.bonus.length === 1 && jQuery.isEmptyObject(def.bonus[0]))) {
 				for( const b of def.bonus) {
@@ -570,7 +570,7 @@ export class Actor4e extends Actor {
 				}
 			}
 			def.bonusValue = defBonusValue;
-			
+
 			//Get Deff stats from items
 			for ( let i of this.items) {
 				if(i.data.type !="equipment" || !i.data.data.equipped ) { continue; };
@@ -590,20 +590,20 @@ export class Actor4e extends Actor {
 			// 	this.update({[`data.defences[${def}].base`]: 10 });
 			// }
 			let modBonus =  def.ability != "" ? data.abilities[def.ability].mod : 0;
-			if(game.settings.get("dnd4e", "halfLevelOptions")) {
+			if(game.settings.get("dnd4emdekrey", "halfLevelOptions")) {
 				def.value += modBonus + def.armour + def.class + def.feat + def.enhance + def.temp + defBonusValue;
 			} else {
-				def.value += modBonus + def.armour + def.class + def.feat + def.enhance + def.temp + defBonusValue + Math.floor(data.details.level / 2);			
+				def.value += modBonus + def.armour + def.class + def.feat + def.enhance + def.temp + defBonusValue + Math.floor(data.details.level / 2);
 			}
 		}
 	}
 
 	calcDefenceStatsNPC(data) {
 		for (let [id, def] of Object.entries(data.defences)) {
-			
+
 			def.label = game.i18n.localize(DND4EBETA.def[id]);
 			def.title = game.i18n.localize(DND4EBETA.defensives[id]);
-						
+
 			let defBonusValue = 0;
 			if(!(def.bonus.length === 1 && jQuery.isEmptyObject(def.bonus[0]))) {
 				for( const b of def.bonus) {
@@ -619,7 +619,7 @@ export class Actor4e extends Actor {
 				}
 			}
 			def.bonusValue = defBonusValue;
-			
+
 			//Get Deff stats from items
 			for ( let i of this.items) {
 				if(i.data.type !="equipment" || !i.data.data.equipped ) { continue; };
@@ -639,14 +639,14 @@ export class Actor4e extends Actor {
 				this.update({[`data.defences[${def}].base`]: 10 });
 			}
 			if(data.advancedCals){
-				if(game.settings.get("dnd4e", "halfLevelOptions")) {
+				if(game.settings.get("dnd4emdekrey", "halfLevelOptions")) {
 					def.value = def.base + def.armour + def.class + def.feat + def.enhance + def.temp + defBonusValue;
 				} else {
 					def.value = def.base + def.armour + def.class + def.feat + def.enhance + def.temp + defBonusValue + Math.floor(data.details.level / 2);
 				}
-				
+
 			} else {
-				def.value = def.base;		
+				def.value = def.base;
 			}
 		}
 	}
@@ -697,8 +697,8 @@ export class Actor4e extends Actor {
 			}
 
 			// Compute modifier
-			skl.mod = data.abilities[skl.ability].mod;			
-			if(game.settings.get("dnd4e", "halfLevelOptions")) {
+			skl.mod = data.abilities[skl.ability].mod;
+			if(game.settings.get("dnd4emdekrey", "halfLevelOptions")) {
 				skl.total = skl.value + skl.base + skl.mod + sklBonusValue + skl.effectBonus - sklArmourPenalty;
 			} else {
 				skl.total = skl.value + skl.base + skl.mod + sklBonusValue + skl.effectBonus - sklArmourPenalty + Math.floor(data.details.level / 2);
@@ -754,7 +754,7 @@ export class Actor4e extends Actor {
 			// Compute modifier
 			skl.mod = data.abilities[skl.ability].mod;
 			if(data.advancedCals){
-				if(game.settings.get("dnd4e", "halfLevelOptions")) {
+				if(game.settings.get("dnd4emdekrey", "halfLevelOptions")) {
 					skl.total = skl.value + skl.base + skl.mod + sklBonusValue + skl.effectBonus - sklArmourPenalty;
 				} else {
 					skl.total = skl.value + skl.base + skl.mod + sklBonusValue + skl.effectBonus - sklArmourPenalty + Math.floor(data.details.level / 2);
@@ -769,7 +769,7 @@ export class Actor4e extends Actor {
 
 	checkLightArmour(){
 		for ( let i of this.items) {
-			if(i.data.type !="equipment" || !i.data.data.equipped ) { 
+			if(i.data.type !="equipment" || !i.data.data.equipped ) {
 				continue;
 			}
 			if(i.data.data.armour.type === "armour" && i.data.data.armour.subType === "heavy"){
@@ -797,11 +797,11 @@ export class Actor4e extends Actor {
 		return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
 	}
 	setConditions(newValue) {
-		
+
 		let newTemp = this.data.data.attributes.temphp.value;
 		if(newValue < this.data.data.attributes.hp.value) {
 			let damage = this.data.data.attributes.hp.value - newValue;
-			
+
 			if(this.data.data.attributes.temphp.value > 0) {
 				newTemp -= damage;
 				if(newTemp < 0) {
@@ -811,17 +811,17 @@ export class Actor4e extends Actor {
 				else {
 					newValue = this.data.data.attributes.hp.value;
 				}
-				
+
 				this.update({[`data.attributes.temphp.value`]:newTemp});
 			}
 		}
-		
+
 		if(newValue > this.data.data.attributes.hp.max) newValue =  this.data.data.attributes.hp.max;
 		else if(newValue < this.data.data.attributes.hp.min) newValue =  this.data.data.attributes.hp.min;
-		
+
 		return [newValue,newTemp];
 	}
-  
+
   /**
    * Roll a Skill Check
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
@@ -836,7 +836,7 @@ export class Actor4e extends Actor {
 		// Compose roll parts and data
 		const parts = ["@mod"];
 		const data = {mod: skl.total};
-		
+
 		// Ability test bonus
 		if ( bonuses.check ) {
 			data["checkBonus"] = bonuses.check;
@@ -851,11 +851,11 @@ export class Actor4e extends Actor {
 
 		let flavText = this.data.data.skills[skillId].chat.replace("@name", this.data.name);
 		flavText = flavText.replace("@label", this.data.data.skills[skillId].label);
-		
+
 		// Reliable Talent applies to any skill check we have full or better proficiency in
-		//const reliableTalent = (skl.value >= 1 && this.getFlag("dnd4e", "reliableTalent"));
+		//const reliableTalent = (skl.value >= 1 && this.getFlag("dnd4emdekrey", "reliableTalent"));
 		// Roll and return
-		
+
 		return d20Roll(mergeObject(options, {
 			parts: parts,
 			data: data,
@@ -863,9 +863,9 @@ export class Actor4e extends Actor {
 			speaker: ChatMessage.getSpeaker({actor: this}),
 			flavor: flavText,
 		}));
-	}	
-  
-  
+	}
+
+
   /**
    * Roll a Ability Check
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
@@ -878,8 +878,8 @@ export class Actor4e extends Actor {
 		const abl = this.data.data.abilities[abilityId];
 
 		// Construct parts
-		const parts = game.settings.get("dnd4e", "halfLevelOptions") ? ["@mod"] : ["@mod", "@halfLevel"];
-		const data = game.settings.get("dnd4e", "halfLevelOptions") ? {mod: abl.mod} : {mod: abl.mod, halfLevel: Math.floor(this.data.data.details.level / 2)};
+		const parts = game.settings.get("dnd4emdekrey", "halfLevelOptions") ? ["@mod"] : ["@mod", "@halfLevel"];
+		const data = game.settings.get("dnd4emdekrey", "halfLevelOptions") ? {mod: abl.mod} : {mod: abl.mod, halfLevel: Math.floor(this.data.data.details.level / 2)};
 
 		// Add feat-related proficiency bonuses
 		// const feats = this.data.flags.dnd4eBeta || {};
@@ -898,10 +898,10 @@ export class Actor4e extends Actor {
 			parts.push("@checkBonus");
 			data.checkBonus = bonuses.check;
 		}
-		
+
 		let flavText = this.data.data.abilities[abilityId].chat.replace("@name", this.data.name);
 		flavText = flavText.replace("@label", this.data.data.abilities[abilityId].label);
-		
+
 		// Roll and return
 		return d20Roll(mergeObject(options, {
 			parts: parts,
@@ -913,7 +913,7 @@ export class Actor4e extends Actor {
 			// halflingLucky: feats.halflingLucky
 		}));
 	}
-	
+
 	rollDef(defId, options={}) {
 		const label = defId;
 		const def = this.data.data.defences[defId];
@@ -921,18 +921,18 @@ export class Actor4e extends Actor {
 		// Construct parts
 		const parts = ["@mod"];
 		const data = {mod: def.value - 10};
-		
+
 		// Add global actor bonus
 		const bonuses = getProperty(this.data.data, "bonuses.defences") || {};
 		if ( bonuses.check ) {
 			parts.push("@checkBonus");
 			data.checkBonus = bonuses.check;
 		}
-		
+
 		let flavText = this.data.data.defences[defId].chat.replace("@name", this.data.name);
 		flavText = flavText.replace("@label", this.data.data.defences[defId].label);
 		flavText = flavText.replace("@title", this.data.data.defences[defId].title);
-		
+
 		// Roll and return
 		return d20Roll(mergeObject(options, {
 			parts: parts,
@@ -940,7 +940,7 @@ export class Actor4e extends Actor {
 			title: game.i18n.format("DND4EBETA.DefencePromptTitle", {defences: CONFIG.DND4EBETA.defensives[label]}),
 			speaker: ChatMessage.getSpeaker({actor: this}),
 			flavor: flavText,
-		}));		
+		}));
 	}
 
 	async rollInitiative({createCombatants=false, rerollInitiative=false, initiativeOptions={}, event={}}={}, options={}) {
@@ -977,12 +977,12 @@ export class Actor4e extends Actor {
 			arr.push(c.id);
 			return arr;
 		}, []);
-		
+
 		const isReroll = !!(game.combat.combatants.get(combatants[0]).data.initiative || game.combat.combatants.get(combatants[0]).data.initiative == 0)
 
 		const parts = ['@init'];
 		let init = this.data.data.attributes.init.value;
-		const tiebreaker = game.settings.get("dnd4e", "initiativeDexTiebreaker");
+		const tiebreaker = game.settings.get("dnd4emdekrey", "initiativeDexTiebreaker");
 		if ( tiebreaker ) init += this.data.data.attributes.init.value / 100;
 		const data = {init: init};
 
@@ -1038,11 +1038,11 @@ export class Actor4e extends Actor {
 		const limitedUses = !!itemData.uses.per;
 		let consumeUse = false;
 		let placeTemplate = false;
-		
+
 		if( configureDialog && limitedUses) {
 			// const usage = await AbilityUseDialog.create(item);
 			// if ( usage === null ) return;
-			
+
 			// consumeUse = Boolean(usage.get("consumeUse"));
 			consumeUse = true;
 			// placeTemplate = Boolean(usage.get("placeTemplate"));
@@ -1052,32 +1052,32 @@ export class Actor4e extends Actor {
 		if ( limitedUses && consumeUse ) {
 			const uses = parseInt(itemData.uses.value || 0);
 			if ( uses <= 0 ) ui.notifications.warn(game.i18n.format("DND4EBETA.ItemNoUses", {name: item.name}));
-			
+
 			await item.update({"data.uses.value": Math.max(parseInt(item.data.data.uses.value || 0) - 1, 0)})
 			// item.update({"data.uses.value": Math.max(parseInt(item.data.data.uses.value || 0) - 1, 0)})
 		}
-			
+
 		// Invoke the Item roll
 		return item.roll();
 	}
-	
+
 	_computeEncumbrance(actorData) {
 		let weight = 0;
-		
+
 		//Weight Currency
-		if ( game.settings.get("dnd4e", "currencyWeight") ) {
+		if ( game.settings.get("dnd4emdekrey", "currencyWeight") ) {
 			for (let [e, v] of Object.entries(actorData.data.currency)) {
 				weight += (e == "ad" ? v/500 : v/50);
 			}
 		}
-		// console.log(game.settings.get("dnd4e", "currencyWeight"))
+		// console.log(game.settings.get("dnd4emdekrey", "currencyWeight"))
 		//Weight Ritual Components
 		for (let [e, v] of Object.entries(actorData.data.ritualcomp)) {
 			// weight += v/100 * 2.205;
 			weight += v * 0.000002;
 		}
 		//4e 1gp or residuum weights 0.000002
-		
+
 		const physicalItems = ["weapon", "equipment", "consumable", "tool", "backpack", "loot"];
 		weight += actorData.items.reduce((weight, i) => {
 			if ( !physicalItems.includes(i.type) ) return weight;
@@ -1085,7 +1085,7 @@ export class Actor4e extends Actor {
 				const w = i.data.data.weight || 0;
 				return weight + (q * w);
 			}, 0);
-	  
+
 
 		//round to nearest 100th.
 		weight = Math.round(weight * 1000) / 1000;
@@ -1119,7 +1119,7 @@ export class Actor4e extends Actor {
 	}
 
 	async calcDamage(damage, multiplier=1, surges=0){
-		if(game.settings.get("dnd4e", "damageCalcRules") === "errata"){
+		if(game.settings.get("dnd4emdekrey", "damageCalcRules") === "errata"){
 			this.calcDamageErrata(damage, multiplier,surges);
 		}
 		else {
@@ -1145,7 +1145,7 @@ export class Actor4e extends Actor {
 				if(actorRes[type].immune){
 					continue;
 				}
-	
+
 				if(actorRes[type].value !== 0 ){ //if has resistances or vulnerability
 					isImmuneAll=false;
 					if(actorRes[type].value < lowestRes){
@@ -1216,7 +1216,7 @@ export class Actor4e extends Actor {
 
 	async applyDamage(amount=0, multiplier=1, surges={}) {
 		amount = Math.floor(parseInt(amount) * multiplier);
-		
+
 		// Healing Surge related checks
 		if(surges.surgeAmount){
 			if(this.data.data.details.surges.value < surges.surgeAmount){ //check to see if enough surges left to use tihs source
@@ -1232,7 +1232,7 @@ export class Actor4e extends Actor {
 		if(surges.surgeAmountValue){
 			amount+= this.data.data.details.surgeValue*surges.surgeAmountValue*multiplier
 		}
-		
+
 		const healFromZero = true; // If true, healing HP starts from zero (the usual for 4e). On false, it follows normal arithmetic
 		const hp = this.data.data.attributes.hp;
 
@@ -1255,13 +1255,13 @@ export class Actor4e extends Actor {
 				}
 			newHp = Math.clamped(newHp - amount, (-1)*this.data.data.details.bloodied, hp.max);
 			}
-	
+
 		// Update the Actor
 		const updates = {
 			"data.attributes.temphp.value": tmp - dt,
 			"data.attributes.hp.value": newHp
 		};
-	
+
 		//spend healing surges
 		if(multiplier < 0  && surges.surgeAmount){
 			updates["data.details.surges.value"] =  this.data.data.details.surges.value - surges.surgeAmount;

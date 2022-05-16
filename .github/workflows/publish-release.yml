@@ -24,7 +24,7 @@ jobs:
         with:
           file: system.json
           field: download
-          value: "https://github.com/mdekrey/foundryvtt-dnd4eBeta/releases/download/${{github.ref_name}}/dnd4e.zip"
+          value: "https://github.com/mdekrey/foundryvtt-dnd4eBeta/releases/download/${{github.ref_name}}/dnd4emdekrey.zip"
 
       - name: Update system.json url path
         uses: jossef/action-set-json-field@v1
@@ -54,14 +54,14 @@ jobs:
       - name: 'Make Zip'
         run: |
           mkdir output
-          mkdir output/dnd4e-mdekrey
-          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd4e-mdekrey
+          mkdir output/dnd4emdekrey
+          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd4emdekrey
           cd output
-          zip -r ../dnd4e.zip dnd4e-mdekrey
+          zip -r ../dnd4emdekrey.zip dnd4emdekrey
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "dnd4e.zip"
+          artifacts: "dnd4emdekrey.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Change and update'

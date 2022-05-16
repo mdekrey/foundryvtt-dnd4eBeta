@@ -15,7 +15,7 @@ export class MultiAttackRoll extends Roll {
     /**
      * Custom chat template to handle multiroll attacks
      */
-    static CHAT_TEMPLATE = "systems/dnd4e-mdekrey/templates/chat/roll-template-multiattack.html";
+    static CHAT_TEMPLATE = "systems/dnd4emdekrey/templates/chat/roll-template-multiattack.html";
 
     get multirollData() {
         return this._multirollData;
@@ -72,7 +72,7 @@ export class MultiAttackRoll extends Roll {
 
             let hitState = "";
 
-            if(game.settings.get("dnd4e", "automationCombat")){
+            if(game.settings.get("dnd4emdekrey", "automationCombat")){
                 if (critState === " critical"){
                     hitState = game.i18n.localize("DND4EBETA.AttackRollHitCrit");
                     targDataArray.targetHit.push(targDataArray.targets[i]);

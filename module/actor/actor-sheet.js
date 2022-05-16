@@ -75,7 +75,7 @@ export default class ActorSheet4e extends ActorSheet {
   /** @override */
   get template() {
     // if ( !game.user.isGM && this.actor.limited ) return "systems/dnd5e/templates/actors/limited-sheet.html";
-    return `systems/dnd4e-mdekrey/templates/actor-sheet.html`;
+    return `systems/dnd4emdekrey/templates/actor-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -933,7 +933,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			}
 		}
 
-		itemData.data.autoGenChatPowerCard = game.settings.get("dnd4e", "powerAutoGenerateLableOption");
+		itemData.data.autoGenChatPowerCard = game.settings.get("dnd4emdekrey", "powerAutoGenerateLableOption");
 
 		if(this.actor.type === "NPC"){
 
@@ -952,7 +952,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 			};
 		}
 
-		if(game.settings.get("dnd4e", "halfLevelOptions")){
+		if(game.settings.get("dnd4emdekrey", "halfLevelOptions")){
 			if(this.actor.type === "NPC"){
 				itemData.data.attack.formula = "";
 			} else {
@@ -991,7 +991,7 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
     const li = event.currentTarget.closest(".item");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( item )  {
-		if (game.settings.get("dnd4e", "itemDeleteConfirmation")) {
+		if (game.settings.get("dnd4emdekrey", "itemDeleteConfirmation")) {
 			return Dialog.confirm({
 				title: game.i18n.format("DND4EBETA.DeleteConfirmTitle", {name: item.name}),
 				content: game.i18n.format("DND4EBETA.DeleteConfirmContent", {name: item.name}),

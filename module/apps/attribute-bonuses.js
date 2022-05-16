@@ -7,7 +7,7 @@ export class AttributeBonusDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: `attribute-bonus-${randomID()}`,
 			classes: ["dnd4eBeta"],
-			template: "systems/dnd4e-mdekrey/templates/apps/attribute-bonuses.html",
+			template: "systems/dnd4emdekrey/templates/apps/attribute-bonuses.html",
 			width: 500,
 			closeOnSubmit: false,
 			submitOnClose: true
