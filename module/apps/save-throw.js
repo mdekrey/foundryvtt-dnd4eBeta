@@ -7,7 +7,7 @@ export class SaveThrowDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "save-throw",
 			classes: ["dnd4eBeta", "actor-save-throw"],
-			template: "systems/dnd4e-mdekrey/templates/apps/save-throw.html",
+			template: "systems/dnd4emdekrey/templates/apps/save-throw.html",
 			width: 500,
 			closeOnSubmit: true
 		});

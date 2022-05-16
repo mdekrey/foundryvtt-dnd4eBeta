@@ -5,7 +5,7 @@ export class ActionPointDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "action-point",
 			classes: ["action-point"],
-			template: "systems/dnd4e-mdekrey/templates/apps/action-point.html",
+			template: "systems/dnd4emdekrey/templates/apps/action-point.html",
 			width: 500,
 			closeOnSubmit: true
 		});

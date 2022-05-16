@@ -3,7 +3,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Track the system version upon which point a migration was last applied
 	 */
-	game.settings.register("dnd4e", "systemMigrationVersion", {
+	game.settings.register("dnd4emdekrey", "systemMigrationVersion", {
 		name: "System Migration Version",
 		scope: "world",
 		config: false,
@@ -14,7 +14,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Register diagonal movement rule setting
 	 */
-	game.settings.register("dnd4e", "diagonalMovement", {
+	game.settings.register("dnd4emdekrey", "diagonalMovement", {
 		name: "SETTINGS.4eDiagN",
 		hint: "SETTINGS.4eDiagL",
 		scope: "world",
@@ -32,7 +32,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Register resistances and vulnerabilities damage rule setting
 	 */
-	 game.settings.register("dnd4e", "damageCalcRules", {
+	 game.settings.register("dnd4emdekrey", "damageCalcRules", {
 		name: "SETTINGS.4eDamageCalcN",
 		hint: "SETTINGS.4eDamageCalcL",
 		scope: "world",
@@ -47,7 +47,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Register Initiative formula setting
 	 */
-	game.settings.register("dnd4e", "initiativeDexTiebreaker", {
+	game.settings.register("dnd4emdekrey", "initiativeDexTiebreaker", {
 		name: "SETTINGS.4eInitTBN",
 		hint: "SETTINGS.4eInitTBL",
 		scope: "world",
@@ -59,7 +59,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Require Currency Carrying Weight
 	 */
-	game.settings.register("dnd4e", "currencyWeight", {
+	game.settings.register("dnd4emdekrey", "currencyWeight", {
 		name: "SETTINGS.4eCurWtN",
 		hint: "SETTINGS.4eCurWtL",
 		scope: "world",
@@ -72,7 +72,7 @@ export const registerSystemSettings = function() {
 	 * Determins if the Advanced Math Options for NPC's is set during their generation
 	 */
 
-	game.settings.register("dnd4e", "npcMathOptions", {
+	game.settings.register("dnd4emdekrey", "npcMathOptions", {
 		name: "SETTINGS.4eNpcMathOptionsN",
 		hint: "SETTINGS.4eNpcMathOptionsL",
 		scope: "world",
@@ -85,7 +85,7 @@ export const registerSystemSettings = function() {
 	 * Allows the ability to turn off half levels for: Ability, Defense, Skills and Initiative score values. Somewhat common house rule.
 	 */
 
-	game.settings.register("dnd4e", "halfLevelOptions", {
+	game.settings.register("dnd4emdekrey", "halfLevelOptions", {
 		name: "SETTINGS.4eHalfLevelOptionsN",
 		hint: "SETTINGS.4eHalfLevelOptionsL",
 		scope: "world",
@@ -97,7 +97,7 @@ export const registerSystemSettings = function() {
 	// /**
 	//  * Option to disable XP bar for session-based or story-based advancement.
 	//  */
-	// game.settings.register("dnd4e", "disableExperienceTracking", {
+	// game.settings.register("dnd4emdekrey", "disableExperienceTracking", {
 	// 	name: "SETTINGS.4eNoExpN",
 	// 	hint: "SETTINGS.4eNoExpL",
 	// 	scope: "world",
@@ -110,7 +110,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Option to automatically generate powers with the Auto Generate Power Card Details set to true or false
 	 */
-	 game.settings.register("dnd4e", "powerAutoGenerateLableOption", {
+	 game.settings.register("dnd4emdekrey", "powerAutoGenerateLableOption", {
 		name: "SETTINGS.4ePowerAutoGenerateLableOptionN",
 		hint: "SETTINGS.4ePowerAutoGenerateLableOptionL",
 		scope: "client",
@@ -125,7 +125,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Option to automatically collapse Item Card descriptions
 	 */
-	game.settings.register("dnd4e", "autoCollapseItemCards", {
+	game.settings.register("dnd4emdekrey", "autoCollapseItemCards", {
 		name: "SETTINGS.4eAutoCollapseCardN",
 		hint: "SETTINGS.4eAutoCollapseCardL",
 		scope: "client",
@@ -140,7 +140,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * Option to automatically roll attack rolls against targeted tokens defence values, and determine if the attack is a hit/miss.
 	 */
-	game.settings.register("dnd4e", "automationCombat",{
+	game.settings.register("dnd4emdekrey", "automationCombat",{
 		name: "SETTINGS.4eAutomationCombatN",
 		hint: "SETTINGS.4eAutomationCombatL",
 		scope: "client",
@@ -155,7 +155,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * show the roll expression formula when making d20 rolls
 	 */
-	game.settings.register("dnd4e", "showRollExpression",{
+	game.settings.register("dnd4emdekrey", "showRollExpression",{
 		name: "SETTINGS.4eShowRollExpressionN",
 		hint: "SETTINGS.4eShowRollExpressionL",
 		scope: "client",
@@ -167,7 +167,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * collapse bonuses down when making rolls
 	 */
-	game.settings.register("dnd4e", "collapseSituationalBonus",{
+	game.settings.register("dnd4emdekrey", "collapseSituationalBonus",{
 		name: "SETTINGS.4eCollapseSituationalBonusN",
 		hint: "SETTINGS.4eCollapseSituationalBonusL",
 		scope: "client",
@@ -180,7 +180,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * debug power attack / damage effect bonuses
 	 */
-	game.settings.register("dnd4e", "debugEffectBonus",{
+	game.settings.register("dnd4emdekrey", "debugEffectBonus",{
 		name: "SETTINGS.4eDebugPowerEffectsN",
 		hint: "SETTINGS.4eDebugPowerEffectsL",
 		scope: "client",
@@ -193,7 +193,7 @@ export const registerSystemSettings = function() {
 	/**
 	 * delete confirmation
 	 */
-	game.settings.register("dnd4e", "itemDeleteConfirmation",{
+	game.settings.register("dnd4emdekrey", "itemDeleteConfirmation",{
 		name: "SETTINGS.4eItemDeleteConfirmationN",
 		hint: "SETTINGS.4eItemDeleteConfirmationL",
 		scope: "client",

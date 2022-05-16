@@ -53,10 +53,10 @@
 				// updates.duration.startTurn = game.combat.turn ?? 0;
 
 				// updates.duration.startRound = combat.round;
-				
+
 				// updates.duration.startTurn = combat.turns[combat.turn].data.initiative ?? 0;
-				// updates.flags.dnd4e.effectData.durationInit = combat.turns[combat.turn].data.initiative ?? 0;
-				updates.flags = {dnd4e: { effectData: { startTurnInit: combat.turns[combat.turn].data.initiative ?? 0}}};
+				// updates.flags.dnd4emdekrey.effectData.durationInit = combat.turns[combat.turn].data.initiative ?? 0;
+				updates.flags = {dnd4emdekrey: { effectData: { startTurnInit: combat.turns[combat.turn].data.initiative ?? 0}}};
 			}
 			this.data.update(updates);
 		}
@@ -88,7 +88,7 @@
 		//types of items that can be equipted
 		const validTypes = ["weapon", "equipment", "consumable", "tool", "loot", "backpack"];
 		if(validTypes.includes(item.type) && item.data.data.equipped === false){
-			this.isSuppressed = this.data.flags.dnd4e?.effectData?.equippedRec || false;
+			this.isSuppressed = this.data.flags.dnd4emdekrey?.effectData?.equippedRec || false;
 			return;
 		}
 		this.isSuppressed = item.areEffectsSuppressed;
@@ -132,11 +132,11 @@
 	 * @type {boolean}
 	 */
 	get isTemporary() {
-		const durationType = this.getFlag("dnd4e", "effectData")?.durationType;
+		const durationType = this.getFlag("dnd4emdekrey", "effectData")?.durationType;
 		if(durationType){
 			return !!durationType;
 		}
-		
+
 		return super.isTemporary;
 		// const duration = this.data.duration.seconds ?? (this.data.duration.rounds || this.data.duration.turns) ?? 0;
 		// return (duration > 0) || this.getFlag("core", "statusId");
@@ -149,7 +149,7 @@
 	//  * @type {{type: string, duration: number|null, remaining: number|null, label: string}}
 	//  */
 	// get duration() {
-	// 	const durationType = this.getFlag("dnd4e", "effectData")?.durationType;
+	// 	const durationType = this.getFlag("dnd4emdekrey", "effectData")?.durationType;
 	// 	if(durationType){
 	// 		console.log(durationType)
 	// 		return durationType;
@@ -160,14 +160,14 @@
 
 	/* --------------------------------------------- */
 
-	
+
 	/**
 	 * @override
 	 * Summarize the active effect duration
 	 * @type {{type: string, duration: number|null, remaining: number|null, label: string}}
 	 */
 	get duration() {
-		if(this.data.flags?.dnd4e?.effectData?.durationType){
+		if(this.data.flags?.dnd4emdekrey?.effectData?.durationType){
 			const d = this.data.duration;
 			const duration = this._getCombatTime(d.rounds, d.turns);
 			return {
@@ -190,7 +190,7 @@
 	 * @private
 	 */
 	_getDurationLabel(rounds, turns) {
-		const durationType = this.getFlag("dnd4e", "effectData")?.durationType;
+		const durationType = this.getFlag("dnd4emdekrey", "effectData")?.durationType;
 		if(durationType){
 
 			if(durationType === "endOfTargetTurn") return  game.i18n.localize("DND4EBETA.DurationEndOfTargetTurnSimp");
@@ -203,7 +203,7 @@
 	}
 
 	_getIsSave() {
-		return this.getFlag("dnd4e", "effectData")?.durationType === "saveEnd";
+		return this.getFlag("dnd4emdekrey", "effectData")?.durationType === "saveEnd";
 	}
 	/* --------------------------------------------- */
 

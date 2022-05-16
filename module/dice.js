@@ -65,7 +65,7 @@ export async function d20Roll({parts=[],  partsExpressionReplacements = [], data
 		targDataArray.multiTargetCheck = true;
 	}
 	let newFlavor = "";
-	template = template || "systems/dnd4e-mdekrey/templates/chat/roll-dialog.html";
+	template = template || "systems/dnd4emdekrey/templates/chat/roll-dialog.html";
 	let dialogData = {
 		formula: parts.join(" + "),
 		data: data,
@@ -147,7 +147,7 @@ async function performD20RollAndCreateMessage(form, {parts, partsExpressionRepla
 					break;
 				}
 			}
-			if (game.settings.get("dnd4e", "collapseSituationalBonus")) {
+			if (game.settings.get("dnd4emdekrey", "collapseSituationalBonus")) {
 				let total = 0;
 				targetBonuses.forEach(bonus => total += CONFIG.DND4EBETA.commonAttackBonuses[bonus.substring(1)].value)
 				allRollsParts.push(parts.concat([total]))
@@ -307,7 +307,7 @@ export async function damageRoll({parts, partsCrit, partsMiss, partsExpressionRe
 	// If they didn't want fast forward, then we need to display the rolls bonus input dialog.
 
 	// Render modal dialog
-	template = template || "systems/dnd4e-mdekrey/templates/chat/roll-dialog.html";
+	template = template || "systems/dnd4emdekrey/templates/chat/roll-dialog.html";
 	let dialogData = {
 		formula: "@damage + @bonus",
 		data: data,

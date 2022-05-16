@@ -7,7 +7,7 @@ export class LongRestDialog extends DocumentSheet {
 		return mergeObject(options, {
 			id: "long-rest",
 			classes: ["dnd4eBeta", "actor-rest"],
-			template: "systems/dnd4e-mdekrey/templates/apps/long-rest.html",
+			template: "systems/dnd4emdekrey/templates/apps/long-rest.html",
 			width: 500,
 			closeOnSubmit: true
 		});

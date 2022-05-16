@@ -37,7 +37,7 @@ export default class ItemSheet4e extends ItemSheet {
 
 	/** @override */
 	get template() {
-		const path = "systems/dnd4e-mdekrey/templates/items/";
+		const path = "systems/dnd4emdekrey/templates/items/";
 		return `${path}/${this.item.data.type}.html`;
 	}
 
@@ -148,10 +148,10 @@ export default class ItemSheet4e extends ItemSheet {
 
 		if(effectPowers){
 			for ( let e of effectPowers ) {
-				e.durationTypeLable = `${CONFIG.DND4EBETA.durationType[e.data.flags.dnd4e.effectData.durationType]}`;
-				if(e.data.flags.dnd4e?.effectData?.powerEffectTypes === "hit") categories.hit.effects.push(e);
-				else if(e.data.flags.dnd4e?.effectData?.powerEffectTypes === "miss") categories.miss.effects.push(e);
-				else if(e.data.flags.dnd4e?.effectData?.powerEffectTypes === "self") categories.self.effects.push(e);
+				e.durationTypeLable = `${CONFIG.DND4EBETA.durationType[e.data.flags.dnd4emdekrey.effectData.durationType]}`;
+				if(e.data.flags.dnd4emdekrey?.effectData?.powerEffectTypes === "hit") categories.hit.effects.push(e);
+				else if(e.data.flags.dnd4emdekrey?.effectData?.powerEffectTypes === "miss") categories.miss.effects.push(e);
+				else if(e.data.flags.dnd4emdekrey?.effectData?.powerEffectTypes === "self") categories.self.effects.push(e);
 				else categories.all.effects.push(e);
 			}
 		}
@@ -169,7 +169,7 @@ export default class ItemSheet4e extends ItemSheet {
 					label: game.i18n.localize("DND4EBETA.EffectNew"),
 					icon: "icons/svg/aura.svg",
 					origin: this.item.uuid,
-					"flags.dnd4e.effectData.powerEffectTypes": li.dataset.effectType,
+					"flags.dnd4emdekrey.effectData.powerEffectTypes": li.dataset.effectType,
 					"duration.rounds": li.dataset.effectType === "temporary" ? 1 : undefined,
 					disabled: li.dataset.effectType === "inactive"
 				}]);
@@ -183,7 +183,7 @@ export default class ItemSheet4e extends ItemSheet {
 	}
 
 	shareItem() {
-		game.socket.emit("system.dnd4e", {
+		game.socket.emit("system.dnd4emdekrey", {
 			itemId: this.item.id
 		});
 	}
