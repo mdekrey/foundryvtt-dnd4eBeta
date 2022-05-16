@@ -778,7 +778,7 @@ export class Helper {
 		tag.sort();
 		powerDetail += tag.length > 0 ? `, ${tag.join(', ')}</b></span>` : `</b></span>`;
 
-		powerDetail += `<br><span><b>${CONFIG.DND4EBETA.abilityActivationTypes[chatData.actionType]} •`;
+		powerDetail += `<br><span><b>${CONFIG.DND4EBETA.abilityActivationTypes[chatData.actionType]} ♦`;
 
 		if(chatData.rangeType === "weapon") {
 			powerDetail += ` ${CONFIG.DND4EBETA.weaponType[chatData.weaponType]}`;

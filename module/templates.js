@@ -24,6 +24,7 @@ export const preloadHandlebarsTemplates = async function() {
 	"systems/dnd4emdekrey/templates/items/parts/item-activation.html",
 	"systems/dnd4emdekrey/templates/items/parts/item-description.html",
 	"systems/dnd4emdekrey/templates/items/parts/item-mountable.html",
+	"systems/dnd4emdekrey/templates/items/parts/item-override.html",
 
 	"systems/dnd4emdekrey/templates/items/parts/item-power-template.html",
 	"systems/dnd4emdekrey/templates/items/parts/item-macro.html",
