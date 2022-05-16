@@ -2,7 +2,7 @@
   "name": "dnd4e-mdekrey",
   "title": "mdekrey's DnD 4th Edition",
   "description": "A beta implementation of Dungeons & Dragons 4th Edition game system for Foundry Virtual Tabletop.",
-  "version": "0.2.78",
+  "version": "0.2.79",
   "minimumCoreVersion": "0.8.5",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
@@ -132,5 +132,5 @@
   "secondaryTokenAttribute": "attributes.temphp",
   "url": "https://github.com/mdekrey/foundryvtt-dnd4eBeta/tree/original/main",
   "manifest": "https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd4e-system.json",
-  "download": "https://github.com/mdekrey/foundryvtt-dnd4eBeta/releases/download/4e/v0.2.78/dnd4e.zip"
+  "download": "https://github.com/mdekrey/foundryvtt-dnd4eBeta/releases/download/4e/v0.2.79/dnd4e.zip"
 }
