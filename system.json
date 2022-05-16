@@ -1,8 +1,8 @@
 {
-	"name": "dnd4e-mdekrey",
-	"title": "mdekrey's DnD 4th Edition",
-	"description": "A beta implementation of Dungeons & Dragons 4th Edition game system for Foundry Virtual Tabletop.",
-	"version": "0.2.79",
+	"name": "dnd-mdekrey-mashup",
+	"title": "mdekrey's DnD Mashup",
+	"description": "An implementation mdekrey's DnD mashup for Foundry Virtual Tabletop.",
+	"version": "0.0.1",
 	"minimumCoreVersion": "0.8.5",
 	"compatibleCoreVersion": "9",
 	"templateVersion": 2,
@@ -20,98 +20,98 @@
 		{
 			"name": "example_alchemy",
 			"label": "Example Alchemical Items",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/example_alchemy.db",
 			"entity": "Item"
 		},
 		{
 			"name": "example_character",
 			"label": "Example Character",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/example_character.db",
 			"entity": "Actor"
 		},
 		{
 			"name": "example_potions",
 			"label": "Example Potions & Poisons",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/example_potions.db",
 			"entity": "Item"
 		},
 		{
 			"name": "example_powers",
 			"label": "Example Powers",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/example_powers.db",
 			"entity": "Item"
 		},
 		{
 			"name": "example_feats",
 			"label": "Example Feats",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/example_feats.db",
 			"entity": "Item"
 		},
 		{
 			"name": "class_features",
 			"label": "Class Features",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/class_features.db",
 			"entity": "Item"
 		},
 		{
 			"name": "racial_features",
 			"label": "Racial Features",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/racial_features.db",
 			"entity": "Item"
 		},
 		{
 			"name": "srd_armour",
 			"label": "SRD Armour",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/srd_armour.db",
 			"entity": "Item"
 		},
 		{
 			"name": "srd_classes",
 			"label": "SRD Classes",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/srd_classes.db",
 			"entity": "Item"
 		},
 		{
 			"name": "srd_equipment",
 			"label": "SRD Equipment",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/srd_equipment.db",
 			"entity": "Item"
 		},
 		{
 			"name": "srd_races",
 			"label": "SRD Races",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/srd_races.db",
 			"entity": "Item"
 		},
 		{
 			"name": "srd_weapons",
 			"label": "SRD Weapons",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/srd_weapons.db",
 			"entity": "Item"
 		},
 		{
 			"name": "srd_rules",
 			"label": "SRD Rules",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/srd_rules.db",
 			"entity": "JournalEntry"
 		},
 		{
 			"name": "manual",
 			"label": "Manual & Help",
-			"system": "dnd4e-mdekrey",
+			"system": "dnd-mdekrey-mashup",
 			"path": "./packs/manual.db",
 			"entity": "JournalEntry"
 		}
@@ -129,6 +129,6 @@
 	"primaryTokenAttribute": "attributes.hp",
 	"secondaryTokenAttribute": "attributes.temphp",
   	"url": "https://mdekrey.github.io/foundryvtt-dnd4eBeta/",
-	"manifest": "https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd4e-system.json",
+	"manifest": "https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd-mashup-system.json",
 	"download": "https://example.com/filled-by-automation"
 }

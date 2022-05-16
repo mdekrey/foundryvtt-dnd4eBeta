@@ -1,12 +1,12 @@
 ![](https://img.shields.io/badge/Foundry-v9-informational)
 
-## DnD 4th Edition - Beta
-* **Author**: EndlesNights#9000 and mdekrey
+## DnD Mashup
+* **Author**: mdekrey and EndlesNights#9000
 * **Contributors**: [ahoward-cf](https://github.com/ahoward-cf), [draconas1](https://github.com/draconas1), [FoxLee](https://github.com/FoxLee), [Marcloure](https://github.com/Marcloure)
 * **Foundry VTT Compatibility**: v0.8.9 to v9
 
 ## Description
-An implementation for the 4th Edition of Everyone's Favourite Cave Spelunking, and Wyvern Slaying, Fantasy Role Playing Game System for [Foundry Virtual Tabletop](https://foundryvtt.com/) in accordance to the [4th Edition System Reference Document](http://weirdzine.com/wp-content/uploads/2015/07/4E_SRD-1.pdf). This system hopes to provide a basis that eases some of the cruncher side of 4th Edition, by providing a feature rich character sheet and some basic automation both inside of and outside of combat.
+A homebrew Role Playing Game System based very loosely on the 4e SRD for [Foundry Virtual Tabletop](https://foundryvtt.com/) in accordance to the [4th Edition System Reference Document](http://weirdzine.com/wp-content/uploads/2015/07/4E_SRD-1.pdf). This system hopes to provide a basis that eases some of the cruncher side of 4th Edition, but also enables a more rich skill- and utility-based role-playing system.
 
 ## Licenses
 The contents of this project is under a number of licenses
@@ -15,9 +15,9 @@ The contents of this project is under a number of licenses
 
 ## Installation
 * Open the Foundry application and click **"Install System"** in the **"Game Systems"** tab.
-* Paste the following link: https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd4e-system.json
+* Paste the following link: https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd-mashup-system.json
 * Click "Install"
-* When creating a new Game World, select **"mdekrey's DnD 4th Edition"** under **Game Systems**.
+* When creating a new Game World, select **"mdekrey's DnD Mashup"** under **Game Systems**.
 
 ![image](https://user-images.githubusercontent.com/58280840/122214010-991a4d80-ce77-11eb-8b55-98f537e93ebf.png)
 

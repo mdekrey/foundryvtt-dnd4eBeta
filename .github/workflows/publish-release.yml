@@ -3,7 +3,7 @@ name: Release Zip
 on:
   push:
     tags:
-      - '4e/*'
+      - 'mashup/*'
 
 jobs:
   release:
@@ -38,11 +38,11 @@ jobs:
         with:
           file: system.json
           field: manifest
-          value: "https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd4e-system.json"
+          value: "https://mdekrey.github.io/foundryvtt-dnd4eBeta/dnd-mashup-system.json"
 
       - id: get-version
         run: |
-          version=$(echo ${{github.ref_name}} | sed s/4e\\/v//)
+          version=$(echo ${{github.ref_name}} | sed s/mashup\\/v//)
           echo "::set-output name=version::$version"
       - name: Update system.json version
         uses: jossef/action-set-json-field@v1
@@ -54,10 +54,10 @@ jobs:
       - name: 'Make Zip'
         run: |
           mkdir output
-          mkdir output/dnd4e-mdekrey
-          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd4e-mdekrey
+          mkdir output/dnd-mdekrey-mashup
+          cp -r icons/ lang/ module/ packs/ styles/ templates/ CHANGELOG.md LICENSE.txt README.md system.json template.json output/dnd-mdekrey-mashup
           cd output
-          zip -r ../dnd4e.zip dnd4e-mdekrey
+          zip -r ../dnd4e.zip dnd-mdekrey-mashup
 
       - uses: ncipollo/release-action@v1
         with:
@@ -70,7 +70,7 @@ jobs:
           git reset --hard
           rm -rf output/
           git checkout gh-pages
-          cp ../system.json dnd4e-system.json
-          git add dnd4e-system.json
+          cp ../system.json dnd-mashup-system.json
+          git add dnd-mashup-system.json
           git commit -m "Release ${{github.ref_name}}"
           git push origin HEAD:gh-pages
