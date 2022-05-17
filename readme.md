@@ -34,14 +34,16 @@ Run the following:
     git fetch EndlesNights
     git fetch origin
     git checkout origin/original/main
-    git merge EndlesNights/main
-    # resolve merge conflicts and commit
+    git merge EndlesNights/main --no-commit
+    # regex replace `dnd4e(?!(BETA|mdekrey|-system))` with `dnd4emdekrey`
+    # resolve remaining merge conflicts and commit
     git push origin HEAD:original/main
     git push origin $(git merge-base origin/original/main EndlesNights/main):original/tracking
 
     git fetch origin
     git checkout origin/mashup/main
-    git merge origin/original/main
+    git merge origin/original/main --no-commit
+    # replace `dnd4emdekrey` with `dndmashup`
     # resolve merge conflicts and commit
     git push origin HEAD:mashup/main
 
