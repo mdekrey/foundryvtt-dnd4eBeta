@@ -636,6 +636,7 @@ export default class Item4e extends Item {
 		const labels = this.labels;
 
 		// Rich text description
+		data.description.displayOverride = data.description.displayOverride ? TextEditor.enrichHTML(data.description.displayOverride, htmlOptions) : '';
 		data.description.value = TextEditor.enrichHTML(data.description.value || ``, htmlOptions);
 
 		// Item type specific properties

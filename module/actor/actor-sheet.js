@@ -846,7 +846,9 @@ ${parseInt(data.data.movement.shift.value)} ${game.i18n.localize("DND4EBETA.Move
 				let descrip = $(`<div class="item-description">${chatData.description.value}</div>`);
 				div.append(descrip);
 
-				if(item.data.data.autoGenChatPowerCard){
+				if (chatData.description.displayOverride) {
+					div.append($(`<div class="item-details">${chatData.description.displayOverride}</div>`));
+				} else if(item.data.data.autoGenChatPowerCard){
 					let details = $(`<div class="item-details">${Helper._preparePowerCardData(chatData, CONFIG, this.actor.data.toObject(false))}</div>`);
 					div.append(details);
 				}

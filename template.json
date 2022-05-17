@@ -52,8 +52,8 @@
 					"notes": ""
 				}
 			},
-			
-			"biography": "",		
+
+			"biography": "",
 			"actionpoints":	{
 				"value": 1,
 				"encounteruse": false,
@@ -118,7 +118,7 @@
 					"temp": 0,
 					"condition": "Conditional Bonuses.",
 					"chat": "@name defends with willpower."
-				}	
+				}
 			},
 			"modifiers":{
 				"attack":{
@@ -140,7 +140,7 @@
 					"bonus": [{}]
 				}
 			},
-			
+
 			"details": {
 				"level": 1,
 				"tier": 1,
@@ -156,7 +156,7 @@
 				"weight": "",
 				"alignment": "",
 				"deity": "",
-				
+
 				"secondwind": false,
 				"deathsaves": 3,
 				"deathsavefail": 0,
@@ -506,7 +506,7 @@
 					"immune": false,
 					"bonus": [{}]
 				}
-				
+
 			},
 			"encumbrance": {
 				"value": null,
@@ -528,7 +528,7 @@
 				"rh" : 0,
 				"si" : 0,
 				"rs" : 0
-			}		
+			}
 		}
 	},
 	"Player Character": {
@@ -538,7 +538,7 @@
 		"templates": ["common"],
 		"advancedCals": false,
 		"details": {
-			
+
 			"origin": "natural",
 			"type": "humanoid",
 			"other": "",
@@ -561,7 +561,7 @@
 			"weight": "",
 			"alignment": "",
 			"deity": "",
-			
+
 			"secondwind": false,
 			"deathsaves": 3,
 			"deathsavefail": 0,
@@ -648,9 +648,9 @@
 				"temp": 0,
 				"condition": "Conditional Bonuses.",
 				"chat": "@name defends with willpower."
-			}	
+			}
 		}
-	}	
+	}
 },
 "Item": {
 	"types": ["weapon", "equipment", "consumable", "tool", "loot", "classFeats", "feat", "backpack", "raceFeats", "pathFeats", "destinyFeats", "ritual", "power"],
@@ -659,7 +659,8 @@
 			"description": {
 				"value": "",
 				"chat": "",
-				"unidentified": ""
+				"unidentified": "",
+				"displayOverride": ""
 			},
 			"source": ""
 		},
@@ -856,7 +857,7 @@
 			"skillCheckValue": 0,
 			"damageRes": {
 				"parts": []
-			}		
+			}
 		},
 		"speed": {
 		"value": null,
